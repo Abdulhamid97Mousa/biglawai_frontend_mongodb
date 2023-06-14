@@ -6,8 +6,6 @@ import countries from "./countries.json";
 import questionTypes from "./questionTypes.json";
 import PhoneInput from "react-phone-number-input";
 import "react-phone-number-input/style.css";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 const ContactPage = () => {
   const [form, setForm] = useState({
@@ -44,7 +42,7 @@ const ContactPage = () => {
 
   return (
     <div className="container mx-auto px-4 py-5">
-      <div className="grid grid-cols-2 gap-[50px]  mt-[50px] mb-[50px]">
+      <div className="grid grid-cols-2 gap-[50px]   mt-[50px] mb-[50px]">
         <div>
           <h1 className="text-2xl font-bold mb-4 text-center">
             Your Feedback Shapes BIGLAW-AI
@@ -69,34 +67,15 @@ const ContactPage = () => {
             3. Are the multilingual translation capabilities meeting your needs
             when dealing with international clients or legal systems?
           </h3>
-          <h3 className="text-lg mb-5">
+          <h3 className="text-lg mb-2">
             4. Is the integrated online text editor making your
             agreement-writing process smoother?
           </h3>
 
-          <h2 className="text-xl font-bold mb-5 mt-5 text-center">
+          <h2 className="text-xl font-bold mb-2 text-center">
             Office Location
           </h2>
-          <p className="mb-5">
-            Address: Building 14, Beijing Institute of Technology (Zhongguancun
-            campus), Haidian District, Beijing, China
-          </p>
-          <div className="h-[600px] w-[600px] text-center bg-center ml-[50px] mt-5">
-            <Carousel>
-              <div>
-                <img src="/Images/Location_Beijing_Far_position.jpg" />
-              </div>
-              <div>
-                <img src="/Images/Location_Beijing_little_close_position.jpg" />
-              </div>
-              <div>
-                <img src="/Images/Location_Beijing_not_very_close_position.jpg" />
-              </div>
-              <div>
-                <img src="/Images/Location_Beijing_very_close_position.jpg" />
-              </div>
-            </Carousel>
-          </div>
+          <p className="mb-4">Contact Information</p>
         </div>
         <div>
           <h1 className="text-2xl font-bold mb-4 text-center">
@@ -142,7 +121,7 @@ const ContactPage = () => {
                 placeholder="Phone Number"
                 value={form.phoneNumber}
                 onChange={handlePhoneChange}
-                className=" w-full"
+                className="block w-full"
               />
             </div>
             <Select
@@ -173,11 +152,8 @@ const ContactPage = () => {
               </div>
             </div>
             <button
-              style={{
-                fontFamily: "Pangea, sans-serif",
-              }}
               type="submit"
-              className="block w-full bg-blue-400 text-white p-2 rounded col-span-2 hover:bg-[#7c8db9] border-2 border-[#d4d4d4]"
+              className="block w-full bg-blue-500 text-white p-2 rounded col-span-2"
             >
               Submit
             </button>
