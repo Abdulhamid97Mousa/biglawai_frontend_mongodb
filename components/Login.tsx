@@ -250,7 +250,7 @@ const Login: React.FC = () => {
               <button
                 type="submit"
                 disabled={isSigningUp}
-                className="h-[40px] w-[100px] rounded-md border border-#d4d4d4 mt-5 bg-white"
+                className="h-[40px] w-[100px] rounded-md border border-#d4d4d4 mt-5 bg-white hover:bg-[#7c8db9]"
               >
                 {isSigningUp ? (
                   <ClipLoader color="#000" size={15} />
