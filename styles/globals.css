@@ -6,6 +6,62 @@
 
 /* Path: styles/globals.css */
 
+
+.contacts-form{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contacts-form input{
+  display: block;
+  padding: 5px;
+  border: 1px gray solid;
+  border-radius: 3px;
+  margin-top: 15px;
+}
+
+.contacts-form textarea{
+  display: block;
+  padding: 5px;
+  border: 1px gray solid;
+  border-radius: 3px;
+  margin-top: 15px;
+}
+
+
+
+.sign-in-form{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-in-form input{
+  display: block;
+  padding: 5px;
+  border: 1px gray solid;
+  border-radius: 3px;
+  margin-top: 15px;
+}
+
+.sign-up-form{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.sign-up-form input{
+  display: block;
+  padding: 5px;
+  border: 1px gray solid;
+  border-radius: 3px;
+  margin-top: 15px;
+}
+
+
 .ul_top_hypers li {
   display: inline;
 }
@@ -85,6 +141,11 @@
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -114,7 +175,6 @@ body{
 footer{
   margin-top: auto;
   flex:auto ;
-  
 }
 
 article {
@@ -135,8 +195,8 @@ nav{
   cursor: pointer;
 }
 .nav__menu-bar div{
-  width: 60px;
-  height: 4px;
+  width: 80px;
+  height: 6px;
   
 }
 .nav__menu-list{
@@ -145,7 +205,7 @@ nav{
 
   top: 60px;
   width: 400px;
-  padding-right: 120px;
+  padding-right: 80px;
   transition: all 0.2s;
   min-height: calc(100vh - 60px);
   background-color: #ecf7ff;
@@ -165,6 +225,7 @@ nav{
   transition: all 0.2s;
 }
 
+
 .nav__link:hover{
  font-weight: bold;
 }
@@ -178,23 +239,40 @@ nav{
 
 .nav__item{
   padding-top: 5px;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .nav__menu-bar{
     display: inline-flex;
   }
   .nav__menu-list{
     display: inline-flex;
+    padding-top: 15px;
     position: unset;
     flex-direction: row;
     min-height: fit-content;
     width: fit-content;
     height: fit-content;
-
     align-items: center;
     color: black;
     font-size: medium;
+    font-family: "Pangea, sans-serif";
+    font-weight: normal;
+  }
+  .nav__menu-list_horizontal{
+    display: inline-flex;
+    padding-top: 15px;
+    position: unset;
+    flex-direction: row;
+    min-height: fit-content;
+    width: fit-content;
+    height: fit-content;
+    align-items: center;
+    color: black;
+    font-size: medium;
+    font-family: "Pangea, sans-serif";
     font-weight: normal;
   }
   .nav__link::before{
@@ -207,3 +285,4 @@ nav{
    width: 100%;
   }
 }
+
