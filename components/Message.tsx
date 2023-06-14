@@ -1,7 +1,17 @@
-import { DocumentData } from "firebase/firestore";
+"use client";
+
+import {
+  DocumentData,
+  collection,
+  doc,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import React from "react";
+import { db } from "../utils/firebase";
 import { Session } from "next-auth";
-import selectMessage from "../functions/selectMessage";
 
 type Props = {
   message: DocumentData;
@@ -12,6 +22,22 @@ type Props = {
 const Message = ({ message, chatId, session }: Props) => {
   const isChatGPT = message.user.name === "ChatGPT";
   const [checked, setChecked] = React.useState(false);
+
+  const handleChange = async () => {
+    setChecked(!checked);
+    //const { data: session } = useSession();
+    const docRef = doc(
+      db,
+      "users",
+      session?.user?.email!,
+      "chats",
+      chatId,
+      "messages",
+      message.messageId
+    );
+    // console.log(docRef.id)
+    await setDoc(docRef, { checked: !checked }, { merge: true });
+  };
 
   return (
     <div
@@ -39,9 +65,7 @@ const Message = ({ message, chatId, session }: Props) => {
             type="checkbox"
             className="justify-self-end mr-3 mt-3 self-start"
             checked={message.checked}
-            onChange={() =>
-              selectMessage(setChecked, checked, session, message, chatId)
-            }
+            onChange={handleChange}
           />
         )}
       </div>
