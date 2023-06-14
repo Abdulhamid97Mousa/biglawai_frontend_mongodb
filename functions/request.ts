@@ -1,17 +1,27 @@
-import { DocumentData, QuerySnapshot, doc, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  DocumentData,
+  QuerySnapshot,
+  doc,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
 import { Dispatch, SetStateAction } from "react";
 import uuid from "react-uuid";
 import { db } from "../utils/firebase";
 import { Session } from "next-auth";
 import getMemo from "./getMemory";
+import { env } from "process";
 
-
-const bigLaw_req_answer = async (input: string, hidePii: boolean, lang: string, 
-  messages: QuerySnapshot<DocumentData> | undefined, 
-  setResponse: Dispatch< SetStateAction<string>>, 
-  session: Session | null, chatId: string) => {
-
-  let memo = getMemo(messages)
+const bigLaw_req_answer = async (
+  input: string,
+  hidePii: boolean,
+  lang: string,
+  messages: QuerySnapshot<DocumentData> | undefined,
+  setResponse: Dispatch<SetStateAction<string>>,
+  session: Session | null,
+  chatId: string
+) => {
+  let memo = getMemo(messages);
   const body = {
     id: uuid().toString(),
     query: input,
@@ -22,7 +32,8 @@ const bigLaw_req_answer = async (input: string, hidePii: boolean, lang: string,
     outline: "dry_lease_of_aircraft",
   };
   var text: string = "";
-  const url = `${process.env.CHATINPUT}`;
+  const url: string = process.env.NEXT_PUBLIC_CHATINPUT as string;
+  console.log("URL: ", url);
   await fetch(url, {
     method: "POST",
     body: JSON.stringify(body),
@@ -76,6 +87,6 @@ const bigLaw_req_answer = async (input: string, hidePii: boolean, lang: string,
       }
       readStream();
     });
-}
+};
 
-export default bigLaw_req_answer
+export default bigLaw_req_answer;

@@ -7,7 +7,6 @@ import Image from "next/image";
 import logo from "../images/log-2.jpg";
 import { usePathname } from "next/navigation";
 
-
 const MENU_LIST = [
   { text: "BIGLAW-AI", href: "/Tryout" },
   { text: "About Us", href: "/About" },
