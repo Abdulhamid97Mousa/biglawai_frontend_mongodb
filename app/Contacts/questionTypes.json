@@ -1,0 +1,6 @@
+[
+  { "value": "feedback", "label": "Feedback" },
+  { "value": "inquiry", "label": "Inquiry" },
+  { "value": "complaint", "label": "Complaint" },
+  { "value": "other", "label": "Other" }
+]

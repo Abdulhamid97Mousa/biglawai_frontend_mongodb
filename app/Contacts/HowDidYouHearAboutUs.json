@@ -1,0 +1,10 @@
+[
+  { "value": "friends", "label": "Friends/Family" },
+  { "value": "social_media", "label": "Social Media" },
+  { "value": "search_engine", "label": "Search Engine" },
+  { "value": "advertisements", "label": "Advertisements" },
+  { "value": "email", "label": "Email" },
+  { "value": "news_article", "label": "News Article" },
+  { "value": "blog", "label": "Blog Post" },
+  { "value": "other", "label": "Other" }
+]
