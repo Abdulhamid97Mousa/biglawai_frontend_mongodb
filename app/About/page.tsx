@@ -65,7 +65,7 @@ const AboutUs = () => {
       <div className="flex justify-center items-center mt-5 mb-5">
         <Link href="/About/Team" legacyBehavior>
           <div
-            className="flex  bg-blue-300 mb-[50px] hover:bg-white cursor-pointer border-2 border-black rounded-md h-[50px] w-[360px] ease-in-out"
+            className="flex  bg-blue-300 mb-[50px] hover:bg-[#7c8db9] cursor-pointer border-2 border-black rounded-md h-[50px] w-[360px] ease-in-out"
             style={{ fontFamily: "Pangea, sans-serif" }}
           >
             <div className="flex-1 justify-center text-center py-3 ">
