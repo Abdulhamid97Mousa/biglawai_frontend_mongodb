@@ -80,11 +80,11 @@ const Pricing = () => {
       <h1 className="text-4xl font-semibold text-gray-700 mt-10 mb-10 text-center">
         Our Pricing
       </h1>
-      <div className="grid grid-cols-3 gap-8 ml-[100px] mr-[100px] mb-[100px]">
+      <div className="grid grid-cols-3 gap-10 ml-[100px] mr-[100px] mb-[100px] ">
         {pricingOptions.map((option, index) => (
           <div
             key={index}
-            className="flex flex-col justify-between border border-gray-200 p-5 rounded shadow h-full"
+            className="flex flex-col justify-between border border-gray-200 p-5 rounded-lg shadow-lg h-full cursor-pointer transform transition-transform duration-500 hover:scale-105"
           >
             <div>
               <h2 className="text-3xl font-semibold mb-5 text-center">
