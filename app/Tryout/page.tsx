@@ -22,7 +22,7 @@ const FirstPage = () => {
               </div>
               <div className="space-y-4">
                 <p className="infoText">
-                  "Generate contract according to this e-mail"
+                  "Generate contract according to this e-mail "
                 </p>
                 <p className="infoText">
                   "Tell me the law difference in the USA"
