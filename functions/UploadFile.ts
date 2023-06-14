@@ -1,4 +1,6 @@
 import { getStorage, ref, uploadBytesResumable, getDownloadURL, StorageReference } from "firebase/storage";
+import { db } from "../utils/firebase";
+import { doc, setDoc } from "firebase/firestore";
 import { APPLICATION, refStorage } from "../utils/firebase";
 const storage = getStorage();
 
