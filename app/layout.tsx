@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
 import NavbarLogin from "../components/NavbarLogin";
+import Footer from "../components/Footer";
 
 export default async function RootLayout({
   children,
@@ -16,6 +17,7 @@ export default async function RootLayout({
       <body>
         <NavbarLogin />
         <div>{children}</div>
+        <Footer />
       </body>
     </html>
   );
