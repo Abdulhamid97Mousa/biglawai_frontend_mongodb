@@ -42,8 +42,8 @@
 .sign-in-form input{
   display: block;
   padding: 5px;
-  border: 2px #d4d4d4 solid;
-  border-radius: 5px;
+  border: 1px gray solid;
+  border-radius: 3px;
   margin-top: 15px;
 }
 
@@ -56,16 +56,8 @@
 .sign-up-form input{
   display: block;
   padding: 5px;
-  border: 2px #d4d4d4 solid;
-  border-radius: 5px;
-  margin-top: 15px;
-}
-
-.sign-up-form button{
-  display: block;
-  padding: 5px;
-  border: 2px #d4d4d4 solid;
-  border-radius: 5px;
+  border: 1px gray solid;
+  border-radius: 3px;
   margin-top: 15px;
 }
 
