@@ -1,4 +1,6 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+"use client";
+
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import "../styles/globals.css";
 import Select, {

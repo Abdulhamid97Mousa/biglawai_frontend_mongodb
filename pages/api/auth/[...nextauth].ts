@@ -34,7 +34,7 @@ export const authOptions: NextAuthOptions = {
         };
         // perform you login logic
         // find out user from db
-        if (email === "john@gmail.com" || password === "12345678") {
+        if (email !== "john@gmail.com" || password !== "12345678") {
           return null;
         }
         // if everything is fine

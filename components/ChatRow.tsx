@@ -1,12 +1,14 @@
+"use client";
+
 import { ChatBubbleLeftIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
-import { deleteDoc, doc } from "firebase/firestore";
+import { useCollection } from "react-firebase-hooks/firestore";
+import { collection, query, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../utils/firebase";
-import getMessages from "../functions/getMessages";
 
 type Props = {
   id: string;
@@ -18,7 +20,11 @@ const ChatRow = ({ id }: Props) => {
   const { data: session } = useSession();
   const [active, setActive] = useState(false);
 
-  var messages = getMessages(db, session, id);
+  const [messages] = useCollection(
+    query(
+      collection(db, "users", session?.user?.email!, "chats", id, "messages")
+    )
+  );
 
   useEffect(() => {
     if (!pathname) return;
