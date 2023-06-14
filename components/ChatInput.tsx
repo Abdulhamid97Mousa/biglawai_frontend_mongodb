@@ -7,13 +7,7 @@ import {
 } from "firebase/storage";
 
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import {
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useRef,
-  useState,
-} from "react";
+import { Dispatch, FormEvent, SetStateAction, useRef, useState } from "react";
 
 import { useSession } from "next-auth/react";
 import {
@@ -30,10 +24,6 @@ import {
   where,
 } from "firebase/firestore";
 import { APPLICATION, db, refStorage } from "../utils/firebase";
-//import { toast } from "react-hot-toast";
-import useSWR from "swr";
-// import ModelSelection from "./ModelSelection";
-// import { useCollection } from "react-firebase-hooks/firestore";
 import DownloadButton from "./Download";
 import { v4 as uuid } from "uuid";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
@@ -41,20 +31,21 @@ import { useCollection } from "react-firebase-hooks/firestore";
 
 type Props = {
   chatId: string;
-  lang:string;
+  lang: string;
   hidePii: boolean;
-  setResponse: Dispatch< SetStateAction<string>>;
-  setCurrentQuestion: Dispatch< SetStateAction<string>>;
+  setResponse: Dispatch<SetStateAction<string>>;
+  setCurrentQuestion: Dispatch<SetStateAction<string>>;
 };
 
-function ChatInput({ chatId, lang, hidePii, setResponse, setCurrentQuestion }: Props) {
-
+function ChatInput({
+  chatId,
+  lang,
+  hidePii,
+  setResponse,
+  setCurrentQuestion,
+}: Props) {
   const [prompt, setPrompt] = useState("");
   const { data: session } = useSession();
-  //use swr to get the model
-  const { data: model } = useSWR("model", {
-    fallbackData: "text-davinci-003",
-  });
   const [filePath, setFilePath] = useState("");
   const [res, setRes] = useState("");
   const [messages] = useCollection(
@@ -71,25 +62,25 @@ function ChatInput({ chatId, lang, hidePii, setResponse, setCurrentQuestion }: P
         orderBy("createdAt", "asc")
       )
   );
-  const getMemo = (messages:QuerySnapshot<DocumentData> | undefined)=>{
-    var memory = []
-    
-  var i = messages?.docs.length
-  if (typeof(i) !== "undefined"){
-    for(let k=0;k<i;k++ ){
-      var doc = messages!.docs[k]
-      if(doc.data().user.name === 'ChatGPT'){
-        memory.push(doc.data().text);
-      } 
+  const getMemo = (messages: QuerySnapshot<DocumentData> | undefined) => {
+    var memory = [];
+
+    var i = messages?.docs.length;
+    if (typeof i !== "undefined") {
+      for (let k = 0; k < i; k++) {
+        var doc = messages!.docs[k];
+        if (doc.data().user.name === "ChatGPT") {
+          memory.push(doc.data().text);
+        }
+      }
     }
-  }  
-   return memory
-  }
- 
+    return memory;
+  };
+
   const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let memo = getMemo(messages)
-    console.log(memo)
+    let memo = getMemo(messages);
+    console.log(memo);
     if (!prompt) return;
     const input = prompt.trim();
     setCurrentQuestion(input);
@@ -125,11 +116,11 @@ function ChatInput({ chatId, lang, hidePii, setResponse, setCurrentQuestion }: P
       ts_path: null,
       hide_pii: hidePii,
       output_language: lang,
-      response:memo.toString(),
+      response: memo.toString(),
       outline: "dry_lease_of_aircraft",
     };
     var text: string = "";
-    const url = "http://127.0.0.1:8000/biglaw_api/chat_draft";
+    const url = `${process.env.CHATINPUT}`;
     await fetch(url, {
       method: "POST",
       body: JSON.stringify(body),

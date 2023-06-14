@@ -1,8 +1,9 @@
+"use client";
+
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { Session } from "next-auth";
 import { db } from "../utils/firebase";
 import { Document, Packer, PageOrientation, Paragraph, TextRun } from "docx";
-import { IPropertiesOptions } from "docx/build/file/core-properties";
 import { saveAs } from "file-saver";
 
 type Props = {

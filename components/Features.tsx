@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import "../styles/globals.css";
@@ -10,7 +12,7 @@ import Select, {
 
 type Props = {
   currentLang: string;
-  setLang: Dispatch< SetStateAction<string>>;
+  setLang: Dispatch<SetStateAction<string>>;
   placeHolder: string;
 };
 
@@ -45,7 +47,7 @@ const options: OptionData[] = [
     label: "Arab",
     value: "arab",
     dialCode: "dialCode 5",
-  }
+  },
 ];
 
 const { Option } = components;
@@ -80,12 +82,11 @@ function Dropdown({ placeHolder, currentLang, setLang }: Props) {
     }
     if (isMultiOption(newValue)) {
       setSelected(newValue[0]);
-      setLang(newValue[0].value)
+      setLang(newValue[0].value);
     } else if (isSingleOption(newValue)) {
       setSelected(newValue);
-      setLang(newValue.value)
+      setLang(newValue.value);
     }
-    
   };
 
   return (
