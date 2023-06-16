@@ -2,7 +2,9 @@ import NextAuth, { NextAuthOptions, RequestInternal } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { auth } from "../../../utils/firebase";
+import { adminDb } from "../../../utils/firebaseAdmin";
+("../../../utils/firebaseAdmin");
+import { auth, db, APPLICATION, refStorage } from "../../../utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export const authOptions: NextAuthOptions = {
