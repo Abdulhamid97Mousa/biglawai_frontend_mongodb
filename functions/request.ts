@@ -31,7 +31,7 @@ const bigLaw_req_answer = async (
     outline: "dry_lease_of_aircraft",
   };
   var text: string = "";
-  const url = `${process.env.CHATINPUT}`;
+  const url = `${process.env.NEXT_PUBLIC_CHATINPUT}`;
   await fetch(url, {
     method: "POST",
     body: JSON.stringify(body),
