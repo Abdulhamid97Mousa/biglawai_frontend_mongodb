@@ -100,7 +100,7 @@ function DownloadButton({ session, chatId }: Props) {
     <button
       type="button"
       onClick={downloadDoc}
-      className="p-1 ml-5 mb-5 rounded-md text-white bg-blue-700/100 border-2 border-[#d4d4d4]"
+      className="p-1 ml-5 mb-5 rounded-md text-black bg-[#93c5fd] border-2 border-[#d4d4d4] hover:bg-[#0c2474]/50"
     >
       Download Responses
     </button>

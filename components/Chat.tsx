@@ -38,7 +38,7 @@ function Chat({ chatId, currentResponse, currentQuestion }: Props) {
   }, [currentResponse, currentQuestion]);
 
   return (
-    <div className="flex-1   h-[500px]  border-[#d4d4d4] rounded-md border-2  mr-10 ml-10 mt-5 overflow-x-hidden">
+    <div className="flex-grow h-[300px] border-[#d4d4d4] rounded-md border-2  mr-10 ml-10 mt-5 overflow-x-hidden">
       {messages?.empty && (
         <div>
           <p className="mt-10 text-center text-black text-base animate-pulse">

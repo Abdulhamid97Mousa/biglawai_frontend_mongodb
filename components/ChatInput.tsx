@@ -32,7 +32,7 @@ function ChatInput({
 
   return (
     <>
-      <div className=" bg-white text-black border-2 border-[#d4d4d4] rounded-md  text-base mr-5 ml-5 mb-5 mt-5">
+      <div className="flex-grow bg-white text-black border-2 border-[#d4d4d4] rounded-md text-base mr-10 ml-10 mb-5 mt-5">
         <form
           onSubmit={(e) =>
             sendMessage(
@@ -75,12 +75,11 @@ function ChatInput({
           onClick={async () =>
             setFilePath(await handleFileSelect(session, chatId))
           }
-          className="p-1  ml-5 rounded-md text-white bg-blue-700/100 flex-row "
+          className="p-1  ml-5 border-2 border-gray-300 rounded-md text-black bg-[#93c5fd] flex-row hover:bg-[#0c2474]/50"
         >
           Upload Document
         </button>
         <DownloadButton session={session} chatId={chatId} />
-        <div>{/* <ModelSelection /> */}</div>
       </div>
     </>
   );
