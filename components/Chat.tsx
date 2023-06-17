@@ -1,12 +1,10 @@
 "use client";
-
-import { collection, orderBy, query } from "firebase/firestore";
 import { useSession } from "next-auth/react";
-import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../utils/firebase";
 import Message from "./Message";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
+import getMessages from "../functions/getMessages";
 
 type Props = {
   chatId: string;
@@ -17,22 +15,10 @@ type Props = {
 function Chat({ chatId, currentResponse, currentQuestion }: Props) {
   const { data: session } = useSession();
   const [streamResponse, setStreamResponse] = useState("");
-  const [messages] = useCollection(
-    session &&
-      query(
-        collection(
-          db,
-          "users",
-          session?.user?.email!,
-          "chats",
-          chatId,
-          "messages"
-        ),
-        orderBy("createdAt", "asc")
-      )
-  );
+  var messages = getMessages(db, session, chatId);
   var iter = 0;
   useEffect(() => {
+    // var [messages]:any = getMessages(db, session, chatId)
     if (
       messages?.docs[messages?.docs.length - 1]?.data().text === streamResponse
     ) {
@@ -49,11 +35,10 @@ function Chat({ chatId, currentResponse, currentQuestion }: Props) {
       setStreamResponse("");
     }
     iter = iter + 1;
-    console.log(iter);
   }, [currentResponse, currentQuestion]);
 
   return (
-    <div className="flex-1   h-[500px]  border-[#d4d4d4] rounded-md border-2  mr-10 ml-10 mt-5 overflow-x-hidden">
+    <div className="flex-grow h-[300px] border-[#d4d4d4] rounded-md border-2  mr-10 ml-10 mt-5 overflow-x-hidden">
       {messages?.empty && (
         <div>
           <p className="mt-10 text-center text-black text-base animate-pulse">
@@ -64,7 +49,7 @@ function Chat({ chatId, currentResponse, currentQuestion }: Props) {
       )}
 
       <div className="text-left justify-evenly">
-        {messages?.docs.map((message, index) => (
+        {messages?.docs.map((message: any, index: number) => (
           <Message
             key={message.id}
             chatId={chatId}

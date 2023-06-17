@@ -1,7 +1,11 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions, RequestInternal } from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { adminDb } from "../../../utils/firebaseAdmin";
+("../../../utils/firebaseAdmin");
+import { auth, db, APPLICATION, refStorage } from "../../../utils/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -20,25 +24,29 @@ export const authOptions: NextAuthOptions = {
       type: "credentials",
       credentials: {
         email: {
-          label: "Email",
+          label: "email",
           type: "email",
-          placeholder: "biglaw@email.com",
+          placeholder: "somebody@gmail.com",
         },
-        password: { label: "Password", type: "password" },
+        password: {
+          label: "Password",
+          type: "password",
+        },
       },
-      authorize(credentials, req) {
-        const { email, password, name } = credentials as {
-          email: string;
-          password: string;
-          name: string;
-        };
-        // perform you login logic
-        // find out user from db
-        if (email !== "john@gmail.com" || password !== "12345678") {
+      async authorize(credentials) {
+        const data = await signInWithEmailAndPassword(
+          auth,
+          credentials?.email || "",
+          credentials?.password || ""
+        );
+        if (credentials?.email !== data.user.email) {
           return null;
         }
-        // if everything is fine
-        return { id: email, name: email, email: email };
+        return {
+          id: data.user.email,
+          name: data.user.email,
+          email: data.user.email,
+        };
       },
     }),
   ],

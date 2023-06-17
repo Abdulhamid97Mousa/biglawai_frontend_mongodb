@@ -20,25 +20,27 @@ const SideBar = () => {
   );
 
   return (
-    <div className="p-6  border-2 border-[#d4d4d4] bg-white rounded-md ">
+    <div className="p-6  border-2 border-[#d4d4d4] bg-white rounded-md mt-10">
       <div className="border-[#d4d4d4] border-2 rounded-md">
         {session && (
-          <div className="cursor-pointer hover:opacity-50">
-            <span>
-              <img
-                src={session.user?.image!}
-                alt="Profile Picture"
-                className="ml-4 h-12 w-12 rounded-md cursor-pointer space-y-4 mt-4 mb-6 hover:opacity-50 inline-block"
-              />
-            </span>
-            <span className="ml-3 text-lg text-black text-center justify-center inline-block">
-              {session.user?.name!}
-            </span>
+          <div className="cursor-pointer hover:opacity-50 flex items-center">
+            <img
+              src={
+                session.user?.image ||
+                `https://ui-avatars.com/api/?name=${session.user?.name}`
+              }
+              alt="Profile Picture"
+              className="ml-4 h-12 w-12 rounded-md cursor-pointer space-y-4 mt-4 mb-6 hover:opacity-50"
+            />
+            <div className="ml-3 mr-3 flex-1">
+              <span className="text-sm text-black overflow-wrap break-all">
+                {session.user?.name!}
+              </span>
+            </div>
           </div>
         )}
       </div>
-      <div className="hidden sm:inline ">{/*  <ModelSelection  /> */}</div>
-      <div className="mt-4 mb-2   overflow-y-auto h-[320px]">
+      <div className="mt-4 mb-2   overflow-y-auto h-[200px]">
         <div className="border-2 border-[#d4d4d4] rounded-lg bg-[#0c2474]">
           <NewChat />
         </div>

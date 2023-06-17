@@ -22,13 +22,15 @@ export default async function Layout({
             <Login />
           </div>
         ) : (
-          <div className="flex-col bg-[#ecf7ff] h-screen ">
-            <div className="flex bg-[#ecf7ff]  ">
-              <div className=" ml-[110px] mb-20  max-w-xs md:min-w-[20rem]">
+          <div className="flex bg-[#ecf7ff] h-screen ">
+            <div className="flex flex-row bg-[#ecf7ff] w-full">
+              <div className="flex-grow ml-[110px] mb-20  max-w-xs md:min-w-[20rem]">
                 <SideBar />
               </div>
-              <ClientProvider />
-              <div className="bg-[#ecf7ff] flex-1 mr-20">{children}</div>
+              <div className="flex-grow mr-20">
+                <ClientProvider />
+                {children}
+              </div>
             </div>
           </div>
         )}
