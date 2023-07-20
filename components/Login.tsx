@@ -73,6 +73,11 @@ const Login: React.FC = () => {
     } catch (error) {
       // Handle error here
       console.error("Login failed", error);
+      if (error instanceof Error) {
+        alert(error.message); // Show error message from the server
+      } else {
+        alert("An unexpected error occurred");
+      }
     }
 
     setIsLoggingIn(false);

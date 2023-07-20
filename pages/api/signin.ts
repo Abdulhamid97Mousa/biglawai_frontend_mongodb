@@ -28,7 +28,7 @@ export default async function signin(
 
       res.status(200).json({ message: "User successfully logged in", chat });
     } else {
-      res.status(401).json({ error: "Invalid email or password" });
+      res.status(401).json({ error: "User not found, please sign up first" }); // Updated error message here
     }
   } catch (error) {
     res.status(500).json({ error: "An error occurred while logging in" });
