@@ -1,30 +1,51 @@
-interface Message {
-  text: string;
+import { prisma } from "@/lib/prisma";
+
+export type Chat = {
+  id: string;
+  userEmail: string | null | undefined;
+  messages: Message[];
+  files: File[];
+};
+
+export type Message = {
+  id: string;
   messageId: string;
+  content: string;
   checked: boolean;
-  createdAt: admin.firestore.Timestamp;
-  user: {
-    _id: string;
-    name: string;
-    avatar: string;
-  };
+  createdAt: Date;
+  chatId: string;
+  userEmail: string;
+  createdBy: string | null;
+  lang: string | null;
+  streamed: boolean; // add this line
+};
+export interface SendMessageRequestBody {
+  input: string;
+  chatId: string;
+  userEmail: string;
+  lang: string;
 }
 
-interface AskOurAPI{
-  id?: string,
-  query: string,
-  ts_path: string|null,
-  hide_pii: false,
-  output_language: "english",
-  response: string | null,
-  outline?: dry_lease_of_aircraft,
-  chat_history?: {}
-}
+export type User = {
+  id: string;
+  email: string;
+  name?: string | null;
+  username?: string | null;
+  image?: string | null;
+  createdAt: Date;
+  emailVerified?: Date | null;
+};
 
-interface OurAPIResponse{
-  response: string,
-  finish_reason: string,
-  total_tokens: 0,
-  message_id: string
-}
+export type File = {
+  id: string;
+  createdAt: Date;
+  fileData: Buffer;
+  filename: String;
+  mimetype: String;
+  chatId: String;
+};
 
+export type NewChat = {
+  id: string;
+  userEmail: string | null | undefined;
+};
