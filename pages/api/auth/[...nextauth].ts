@@ -1,16 +1,12 @@
-import NextAuth, { NextAuthOptions, RequestInternal } from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import prisma from "../../../lib/prisma";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { adminDb } from "../../../utils/firebaseAdmin";
-("../../../utils/firebaseAdmin");
-import { auth, db, APPLICATION, refStorage } from "../../../utils/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import EmailProvider from "next-auth/providers/email";
 
 export const authOptions: NextAuthOptions = {
-  session: {
-    strategy: "jwt",
-  },
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID!,
@@ -20,34 +16,16 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
-    CredentialsProvider({
-      type: "credentials",
-      credentials: {
-        email: {
-          label: "email",
-          type: "email",
-          placeholder: "somebody@gmail.com",
-        },
-        password: {
-          label: "Password",
-          type: "password",
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
         },
       },
-      async authorize(credentials) {
-        const data = await signInWithEmailAndPassword(
-          auth,
-          credentials?.email || "",
-          credentials?.password || ""
-        );
-        if (credentials?.email !== data.user.email) {
-          return null;
-        }
-        return {
-          id: data.user.email,
-          name: data.user.email,
-          email: data.user.email,
-        };
-      },
+      from: process.env.EMAIL_SERVER_USER,
     }),
   ],
   secret: process.env.JWT_SECRET!,

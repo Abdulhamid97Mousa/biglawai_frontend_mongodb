@@ -2,34 +2,17 @@
 
 import { signIn, useSession } from "next-auth/react";
 
-import { FcGoogle } from "react-icons/fc";
-import { AiFillGithub } from "react-icons/ai";
+import GoogleIcon from "@mui/icons-material/Google";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import { FormEventHandler, useState } from "react";
 import { ClipLoader } from "react-spinners";
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  addDoc,
-  collection,
-  serverTimestamp,
-} from "firebase/firestore";
-
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
-import { db } from "../utils/firebase";
 
 interface UserInfo {
   email: string;
-  password: string;
 }
 
 interface SignUpInfo extends UserInfo {
-  confirmPassword: string;
+  username: string;
 }
 
 const Login: React.FC = () => {
@@ -37,57 +20,59 @@ const Login: React.FC = () => {
 
   const [userInfo, setUserInfo] = useState<UserInfo>({
     email: "",
-    password: "",
   });
   const [signUpInfo, setSignUpInfo] = useState<SignUpInfo>({
+    username: "",
     email: "",
-    password: "",
-    confirmPassword: "",
   });
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isSigningUp, setIsSigningUp] = useState(false);
+  // const router = useRouter(); // Instantiate the router
 
   const handleLogin: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     setIsLoggingIn(true);
 
-    const auth = getAuth();
-
     try {
-      // Sign in with Firebase first
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        userInfo.email,
-        userInfo.password
-      );
+      const response = await fetch("/api/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userInfo.email,
+        }),
+      });
 
-      // After successfully signing in with Firebase, sign in with NextAuth
-      if (userCredential.user) {
-        signIn("credentials", {
-          // This will vary depending on your NextAuth credentials provider setup
-          email: userCredential.user.email,
-          password: userInfo.password,
-          redirect: true,
-        });
+      const data = await response.json();
 
-        // Alert that login was successful
-        alert("you're logged in successfully, please wait!");
+      //console.log("this data", data.chat.id);
 
-        // Create a new Firestore document
-        await addDoc(
-          collection(db, "users", userCredential.user.email!, "chats"),
-          {
-            userId: userCredential.user.email!,
-            createdAt: serverTimestamp(),
-          }
-        );
+      if (!response.ok) {
+        throw new Error(data.error || "Login failed");
+      }
+
+      // If you reach this point, login was successful
+      console.log("User successfully logged in");
+
+      // Start session with NextAuth
+      const result = await signIn("email", {
+        email: userInfo.email,
+        callbackUrl: `${window.location.origin}/Tryout/chat/${data.chat.id}`,
+        redirect: false,
+      });
+
+      if (result && !result.error) {
+        console.log("NextAuth session started successfully");
+        alert("Please check your email to complete sign in");
+        // Optionally, redirect user here using router.push
+      } else {
+        throw new Error(result?.error || "NextAuth signIn returned undefined");
       }
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error logging in: Wrong password");
-        alert("Failed to log in: Wrong password");
-      }
+      // Handle error here
+      console.error("Login failed", error);
     }
 
     setIsLoggingIn(false);
@@ -98,183 +83,171 @@ const Login: React.FC = () => {
 
     setIsSigningUp(true);
 
-    const auth = getAuth();
-    const db = getFirestore();
-
     try {
-      // Make sure passwords match
-      if (signUpInfo.password !== signUpInfo.confirmPassword) {
-        throw new Error("Passwords do not match");
-      }
-
-      // Sign up with Firebase Auth
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        signUpInfo.email,
-        signUpInfo.password
-      );
-
-      if (userCredential.user) {
-        // Hash the password - consider a higher number in production
-        // const hashedPassword = await bcrypt.hash(signUpInfo.password, 10);
-        // Here we create the user document in Firestore. We're only storing the email for now.
-        await setDoc(doc(db, "users", userCredential.user.email!), {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: signUpInfo.username,
           email: signUpInfo.email,
-          password: signUpInfo.password,
-        });
-        alert("Signed up successfully!");
+        }),
+      });
+
+      if (response.ok) {
+        console.log(response);
+        alert("Sign up successful, please click on the Login button");
+        // Handle successful signup here, like redirecting to a different page
       } else {
-        throw new Error("No user credential returned from Firebase");
+        // Handle error here
+        throw new Error("Sign up failed");
       }
     } catch (error) {
-      if (error instanceof Error) {
-        console.error("Error signing up:", error.message);
-        alert("Failed to sign up: " + error.message);
-      }
+      console.error(error);
     }
 
     setIsSigningUp(false);
   };
 
   return (
-    <div className="bg-white min-h-screen flex flex-col items-center justify-center space-x-4">
-      <div className="mb-5"></div>
-      <div className="flex space-x-4">
-        {isLogin ? (
-          // This is the login form
-          <div className="flex flex-col border-2 w-[400px] border-[#d4d4d4] bg-[#ecf7ff] rounded-lg text-center mb-[100px]">
-            <h2 className="font-bold text-2xl mt-5">Login Form</h2>
-            <form
-              className="sign-in-form mb-5  text-center flex flex-col"
-              onSubmit={handleLogin}
-            >
-              <input
-                className="h-[40px] w-[320px] border-gray-300 border-2"
-                value={userInfo.email}
-                type="email"
-                placeholder="Email"
-                onChange={({ target }) =>
-                  setUserInfo({ ...userInfo, email: target.value })
-                }
-              />
-              <input
-                className="h-[40px] w-[320px] border-gray-300"
-                type="password"
-                placeholder="Password"
-                value={userInfo.password}
-                onChange={({ target }) =>
-                  setUserInfo({ ...userInfo, password: target.value })
-                }
-              />
-              <button
-                type="submit"
-                disabled={isLoggingIn}
-                className="h-[40px] w-[100px] rounded-md  border-[#d4d4d4] border-2 mt-5 bg-white hover:bg-[#7c8db9] cursor-pointer"
+    <>
+      <div className="bg-white min-h-screen flex flex-col items-center justify-center space-x-4">
+        <div className="mb-5"></div>
+        <div className="flex space-x-4">
+          {isLogin ? (
+            // This is the login form
+            <div className="flex flex-col border-2 w-[400px] border-[#d4d4d4] bg-[#ecf7ff] rounded-lg text-center mb-[100px]">
+              <h2 className="font-bold text-2xl mt-5">Login Form</h2>
+              <form
+                className="sign-in-form mb-5  text-center flex flex-col"
+                onSubmit={handleLogin}
               >
-                {isLoggingIn ? <ClipLoader color="#000" size={15} /> : "Login"}
-              </button>
-            </form>
-            <div className="flex flex-col items-center justify-center text-center mb-10">
-              <div className="flex h-[60px] w-[320px] items-center cursor-pointer justify-center rounded-md border border-gray-300 bg-white mb-5">
-                <FcGoogle fontSize={30} className="mr-3"></FcGoogle>
+                <input
+                  className="h-[40px] w-[320px] border-gray-300 border-2"
+                  value={userInfo.email}
+                  type="email"
+                  placeholder="Email"
+                  onChange={({ target }) =>
+                    setUserInfo({ ...userInfo, email: target.value })
+                  }
+                />
+                {/*<input
+                  className="h-[40px] w-[320px] border-gray-300 border-2"
+                  value={userInfo.password}
+                  type="password"
+                  placeholder="Your password"
+                  onChange={({ target }) =>
+                    setUserInfo({ ...userInfo, password: target.value })
+                  }
+                /> */}
+
                 <button
-                  type="button"
-                  onClick={() => signIn("google")}
-                  className="text-black font-bold animate-pulse"
+                  type="submit"
+                  disabled={isLoggingIn}
+                  className="h-[40px] w-[100px] rounded-md  border-[#d4d4d4] border-2 mt-5 bg-white hover:bg-[#7c8db9] cursor-pointer"
                 >
-                  Sign In with Google
+                  {isLoggingIn ? (
+                    <ClipLoader color="#000" size={15} />
+                  ) : (
+                    "Login"
+                  )}
                 </button>
-              </div>
-              <div className="flex h-[60px] w-[320px] items-center cursor-pointer justify-center rounded-md border border-gray-300 bg-white">
-                <AiFillGithub fontSize={30} className="mr-3"></AiFillGithub>
-                <button
-                  type="button"
-                  onClick={() => signIn("github")}
-                  className="text-black font-bold animate-pulse"
-                >
-                  Sign In with Github
-                </button>
-              </div>
-              <div className="mt-5">
-                <p>
-                  Don't have an account?{" "}
-                  <a
-                    className="font-bold hover:text-[#7c8db9]"
-                    href="#"
-                    onClick={() => setIsLogin(false)}
+              </form>
+              <div className="flex flex-col items-center justify-center text-center mb-10">
+                <div className="flex h-[60px] w-[320px] items-center cursor-pointer justify-center rounded-md border border-gray-300 bg-white mb-5">
+                  <GoogleIcon
+                    style={{ fontSize: "30px", marginRight: "3px" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => signIn("google")}
+                    className="text-black font-bold animate-pulse"
                   >
-                    Sign up
-                  </a>
-                </p>
+                    Sign In with Google
+                  </button>
+                </div>
+                <div className="flex h-[60px] w-[320px] items-center cursor-pointer justify-center rounded-md border border-gray-300 bg-white">
+                  <GitHubIcon
+                    style={{ fontSize: "30px", marginRight: "3px" }}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => signIn("github")}
+                    className="text-black font-bold animate-pulse"
+                  >
+                    Sign In with Github
+                  </button>
+                </div>
+                <div className="mt-5">
+                  <p>
+                    Don't have an account?{" "}
+                    <a
+                      className="font-bold hover:text-[#7c8db9]"
+                      href="#"
+                      onClick={() => setIsLogin(false)}
+                    >
+                      Sign up
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          // This is the sign up form
-          <div className="flex flex-col border-2 w-[400px] border-[#d4d4d4] bg-[#ecf7ff] rounded-lg text-center mb-[100px]">
-            <h2 className="font-bold text-2xl mt-5">Signup Form</h2>
-            <form
-              className="sign-up-form mb-5  text-center flex flex-col"
-              onSubmit={handleSignUp}
-            >
-              <input
-                className="h-[40px] w-[320px]"
-                value={signUpInfo.email}
-                type="email"
-                placeholder="Email"
-                onChange={({ target }) =>
-                  setSignUpInfo({ ...signUpInfo, email: target.value })
-                }
-              />
-              <input
-                className="h-[40px] w-[320px]"
-                type="password"
-                placeholder="Password"
-                value={signUpInfo.password}
-                onChange={({ target }) =>
-                  setSignUpInfo({ ...signUpInfo, password: target.value })
-                }
-              />
-              <input
-                className="h-[40px] w-[320px]"
-                type="password"
-                placeholder="Confirm Password"
-                value={signUpInfo.confirmPassword}
-                onChange={({ target }) =>
-                  setSignUpInfo({
-                    ...signUpInfo,
-                    confirmPassword: target.value,
-                  })
-                }
-              />
-              <button
-                type="submit"
-                disabled={isSigningUp}
-                className="h-[40px] w-[100px] rounded-md border border-#d4d4d4 mt-5 bg-white hover:bg-[#7c8db9]"
+          ) : (
+            // This is the sign up form
+            <div className="flex flex-col border-2 w-[400px] border-[#d4d4d4] bg-[#ecf7ff] rounded-lg text-center mb-[100px]">
+              <h2 className="font-bold text-2xl mt-5">Signup Form</h2>
+              <form
+                className="sign-up-form mb-5  text-center flex flex-col"
+                onSubmit={handleSignUp}
               >
-                {isSigningUp ? (
-                  <ClipLoader color="#000" size={15} />
-                ) : (
-                  "Sign Up"
-                )}
-              </button>
-              <div className="mt-5">
-                <p>
-                  Already have an account?{" "}
-                  <a
-                    className="font-bold hover:text-[#7c8db9]"
-                    href="#"
-                    onClick={() => setIsLogin(true)}
-                  >
-                    Login
-                  </a>
-                </p>
-              </div>
-            </form>
-          </div>
-        )}
+                <input
+                  className="h-[40px] w-[320px]"
+                  value={signUpInfo.username}
+                  type="text"
+                  placeholder="Username"
+                  onChange={({ target }) =>
+                    setSignUpInfo({ ...signUpInfo, username: target.value })
+                  }
+                />
+                <input
+                  className="h-[40px] w-[320px]"
+                  value={signUpInfo.email}
+                  type="email"
+                  placeholder="Email"
+                  onChange={({ target }) =>
+                    setSignUpInfo({ ...signUpInfo, email: target.value })
+                  }
+                />
+                <button
+                  type="submit"
+                  disabled={isSigningUp}
+                  className="h-[40px] w-[100px] rounded-md border border-#d4d4d4 mt-5 bg-white hover:bg-[#7c8db9]"
+                >
+                  {isSigningUp ? (
+                    <ClipLoader color="#000" size={15} />
+                  ) : (
+                    "Sign Up"
+                  )}
+                </button>
+                <div className="mt-5">
+                  <p>
+                    Already have an account?{" "}
+                    <a
+                      className="font-bold hover:text-[#7c8db9]"
+                      href="#"
+                      onClick={() => setIsLogin(true)}
+                    >
+                      Login
+                    </a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
