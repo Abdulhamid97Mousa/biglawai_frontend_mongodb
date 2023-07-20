@@ -1,18 +1,30 @@
-import { doc, setDoc } from "firebase/firestore";
 import { Session } from "next-auth";
-import { db } from "../utils/firebase";
-import { DocumentData } from "firebase-admin/firestore";
+import { Message } from "@/typings"; // your Message type
 
+const selectMessage = async (
+  setChecked: React.Dispatch<React.SetStateAction<boolean>>,
+  checked: boolean,
+  session: Session | null,
+  message: Message,
+  chatId: string
+) => {
+  const response = await fetch("/api/SelectMessage", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      checked: !checked, // we're toggling the checked value
+      userId: session?.user?.email,
+      messageId: message.messageId,
+      chatId,
+    }),
+  });
 
-
-const selectMessage = async (setChecked: React.Dispatch< React.SetStateAction<boolean>>,
-    checked: boolean, session: Session|null, message: DocumentData, 
-    chatId: string) => {
+  // if the request is successful, update the checked state
+  if (response.ok) {
     setChecked(!checked);
-    const docRef = doc(db, "users", session?.user?.email!,"chats",
-      chatId, "messages", message.messageId);
-    // console.log(docRef.id)
-    await setDoc(docRef, { checked: !checked }, { merge: true });
-  };
+  }
+};
 
-export default selectMessage  
+export default selectMessage;

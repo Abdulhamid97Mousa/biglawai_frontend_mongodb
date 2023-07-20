@@ -1,17 +1,12 @@
-import { DocumentData, QuerySnapshot } from "firebase/firestore";
-
-const getMemo = (messages:QuerySnapshot<DocumentData> | undefined)=>{
-    var memory = []
-  var i = messages?.docs.length
-  if (typeof(i) !== "undefined"){
-    for(let k=0;k<i;k++ ){
-      var doc = messages!.docs[k]
-      if(doc.data().user.name === 'ChatGPT'){
-        memory.push(doc.data().text);
-      } 
-    }
-  }  
-   return memory
+const getMemory = async (chatId: string) => {
+  // Send a fetch request to the GetMemory API
+  const res = await fetch(`/api/GetMemory?chatId=${chatId}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch memory from the API");
   }
+  const memory = await res.json();
 
-export default getMemo  
+  return memory;
+};
+
+export default getMemory;

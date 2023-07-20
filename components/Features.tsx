@@ -1,6 +1,4 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-
-import "../styles/globals.css";
 import Select, {
   components,
   OptionProps,
@@ -42,8 +40,8 @@ const options: OptionData[] = [
     dialCode: "dialCode 4",
   },
   {
-    label: "Arab",
-    value: "arab",
+    label: "German",
+    value: "german",
     dialCode: "dialCode 5",
   },
 ];
@@ -56,8 +54,7 @@ const IconOption = (props: OptionProps<OptionData>) => {
   return (
     <Option {...props}>
       <div>{label}</div>
-      {/* <div>{`(+${dialCode})`}</div> */}
-    </Option>
+    </Option> 
   );
 };
 
@@ -89,10 +86,12 @@ function Dropdown({ placeHolder, currentLang, setLang }: Props) {
 
   return (
     <Select
+      instanceId="language-dropdown"
       options={options}
       value={selected}
       components={{ Option: IconOption }}
       onChange={onSelectedChange}
+      isSearchable={false} // Disable search feature
     />
   );
 }
