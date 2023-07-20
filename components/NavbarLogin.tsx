@@ -4,8 +4,9 @@ import Link from "next/link";
 import React, { useState } from "react";
 import NavItem from "./NavItem";
 import Image from "next/image";
-import logo from "../images/log-2.jpg";
+import logo from "../public/Images/log-2.jpg";
 import { usePathname } from "next/navigation";
+import { Bars4Icon } from "@heroicons/react/24/outline";
 
 const MENU_LIST = [
   { text: "BIGLAW-AI", href: "/Tryout" },
@@ -23,36 +24,27 @@ const Navbar = () => {
     <>
       <div
         id="topofdiv"
-        className="nav flex bg-[#ecf7ff] justify-between border-b-2 border-gray-300"
+        className="nav flex bg-[#ecf7ff] justify-between border-b-2 border-gray-300 items-center"
       >
-        <Link href={"/"} legacyBehavior>
-          <a className="ml-[80px] mb-1 mt-1">
-            <Image src={logo} width={300} height={300} alt="logo" />
+        <Link rel="preload" href={"/"} legacyBehavior>
+          <a className="ml-[80px] mb-5 mt-5">
+            <Image src={logo} alt="logo" priority={true} width={200} />
           </a>
         </Link>
 
         {/* Burger Menu */}
         <div
-          className="2xl:hidden 3xl:hidden relative lg:block  xxxs:hidden xxxxs:hidden"
+          className="2xl:hidden 3xl:hidden relative lg:block xxxs:hidden xxxxs:hidden"
           onClick={() => setNavActive(!navActive)}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="#353a3c"
-            className="mr-[100px] mt-[30px] cursor-pointer hover:bg-gray-300 transition-all duration-200 ease-out  rounded-lg"
-            viewBox="0 0 16 18"
-            width="50"
-            height="50"
-          >
-            <path d="M1 3h14a1 1 0 0 1 0 2H1a1 1 0 1 1 0-2zm0 5h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2zm0 5h14a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2z" />
-          </svg>
+          <Bars4Icon className="h-12 w-12 text-black mr-[100px] mt-5 mb-5 cursor-pointer hover:bg-gray-300 transition-all duration-200 ease-out rounded-lg" />
 
           {/* Dropdown Menu */}
           <div
             id="nav__menu-list"
             className={`${
               navActive ? "block rounder-lg border-gray-300 border-2" : "hidden"
-            } 2xl:hidden  bg-white shadow-md rounded-lg absolute right-[100px] border-gray-300 w-[200px]`}
+            } 2xl:hidden bg-white shadow-md rounded-lg absolute top-[50px] right-[100px] border-gray-300 w-[200px] z-50`}
           >
             {MENU_LIST.map((menu, idx) => (
               <Link key={menu.text} href={menu.href} legacyBehavior>
