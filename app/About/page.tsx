@@ -52,7 +52,7 @@ const AboutUs = () => {
                   src={member.imageUrl}
                   alt={member.name}
                   width={300}
-                  height={300}
+                  height={200}
                   className="rounded-full"
                 />
               </div>

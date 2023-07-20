@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { FaCheck, FaTimes } from "react-icons/fa";
+import CheckBoxIcon from "@mui/icons-material/CheckBox";
+import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 
 const Pricing = () => {
   const allBenefits = [
@@ -98,7 +99,9 @@ const Pricing = () => {
                     className="flex justify-between items-center mb-2"
                   >
                     {benefit}
-                    <FaCheck className="text-green-500 ml-2" />
+                    <CheckBoxIcon
+                      style={{ color: "green", marginLeft: "2px" }}
+                    />
                   </li>
                 ))}
                 {option.notIncluded!.map((notBenefit, index) => (
@@ -107,13 +110,15 @@ const Pricing = () => {
                     className="flex justify-between items-center mb-2"
                   >
                     {notBenefit}
-                    <FaTimes className="text-red-500 ml-2" />
+                    <DisabledByDefaultIcon
+                      style={{ color: "red", marginLeft: "2px" }}
+                    />
                   </li>
                 ))}
               </ul>
             </div>
             <div className="mt-10 text-center">
-              <Link href={option.buttonLink} legacyBehavior>
+              <Link href={option.buttonLink} legacyBehavior >
                 <a className="bg-blue-500 text-white py-2 px-4 rounded mb-5 inline-block">
                   {option.buttonLabel}
                 </a>

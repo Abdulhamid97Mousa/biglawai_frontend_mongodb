@@ -50,7 +50,7 @@ const Team = () => {
                 src={member.imageUrl}
                 alt={member.name}
                 width={400}
-                height={400}
+                height={500}
                 className="rounded-full"
               />
             </div>
