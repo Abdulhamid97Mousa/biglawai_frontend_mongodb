@@ -1,11 +1,9 @@
-// These styles apply to every route in the application
-import "../../styles/globals.css";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
 import { SessionProvider } from "../../components/SessionProvider";
-import SideBar from "../../components/SideBar";
 import Login from "../../components/Login";
 import ClientProvider from "../../components/ClientProvider";
+import SideBar from "@/components/SideBar";
 
 export default async function Layout({
   children,
@@ -18,13 +16,13 @@ export default async function Layout({
     <>
       <SessionProvider session={session}>
         {!session ? (
-          <div>
+          <>
             <Login />
-          </div>
+          </>
         ) : (
           <div className="flex bg-[#ecf7ff] h-screen ">
-            <div className="flex flex-row bg-[#ecf7ff] w-full">
-              <div className="flex-grow ml-[110px] mb-20  max-w-xs md:min-w-[20rem]">
+            <div className="flex  bg-[#ecf7ff] w-full">
+              <div className="flex-col ml-4 sm:ml-6 md:ml-8 lg:ml-12 xl:ml-20 mb-20 max-w-xs md:min-w-[20rem]">
                 <SideBar />
               </div>
               <div className="flex-grow mr-20">
