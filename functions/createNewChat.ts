@@ -1,20 +1,21 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "../utils/firebase";
+import { NewChat } from "@/typings";
 import { Session } from "next-auth";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
 
+const createNewChat = async (session: Session | null): Promise<NewChat> => {
+  const res = await fetch("/api/CreateNewChat", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userId: session?.user?.email }),
+  });
 
-const createNewChat = async (session: Session|null, 
-                        router:AppRouterInstance) => {
-    const doc = await addDoc(
-      collection(db, "users", session?.user?.email!, "chats"),
-      {
-        userId: session?.user?.email!,
-        createdAt: serverTimestamp(),
-      }
-    );
-    router.push(`Tryout/chat/${doc.id}`);
+  const data = await res.json();
+
+  return {
+    id: data.id,
+    userEmail: session?.user?.email,
   };
+};
 
-export default createNewChat  
-  
+export default createNewChat;

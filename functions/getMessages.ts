@@ -1,25 +1,23 @@
-import { Firestore, collection, orderBy, query } from "firebase/firestore";
-import { Session } from "next-auth";
-import { useCollection } from "react-firebase-hooks/firestore";
+import { Message as MessageType } from "@/typings";
 
+const getMessages = async (
+  userEmail: string,
+  chatId: string
+): Promise<MessageType[]> => {
+  const res = await fetch(
+    `/api/GetMessages?userEmail=${userEmail}&chatId=${chatId}`
+  );
 
+  if (!res.ok) {
+    throw new Error(`Request failed with status ${res.status}`);
+  }
 
-const getMessages = (db: Firestore, session: Session|null, chatId: string)=>{
-    const [messages] = useCollection(
-        session &&
-          query(
-            collection(
-              db,
-              "users",
-              session?.user?.email!,
-              "chats",
-              chatId,
-              "messages"
-            ),
-            orderBy("createdAt", "asc")
-          )
-      );
-      return messages
-}
+  const data = await res.json();
+  if (!Array.isArray(data)) {
+    throw new TypeError("Expected array but received:" + typeof data);
+  }
 
-export default getMessages
+  return data;
+};
+
+export default getMessages;
