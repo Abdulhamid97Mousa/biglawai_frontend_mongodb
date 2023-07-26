@@ -40,7 +40,7 @@ const Team = () => {
 
   return (
     <>
-
+      <RefreshPage />
       {
         <div>
           <h1 className="text-4xl font-semibold text-gray-700 mt-10 mb-10 text-center">

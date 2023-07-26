@@ -41,6 +41,7 @@ const AboutUs = () => {
 
   return (
     <>
+      <RefreshPage />
       {
         <div>
           <div>

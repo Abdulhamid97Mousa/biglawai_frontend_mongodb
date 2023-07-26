@@ -4,6 +4,8 @@ import React from "react";
 import Link from "next/link";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
+import { Refresh } from "@material-ui/icons";
+import { RefreshPage } from "@/components/RefreshPage";
 
 const Pricing = () => {
   const allBenefits = [
@@ -79,57 +81,62 @@ const Pricing = () => {
   });
 
   return (
-    <div className="px-4 py-5 my-5">
-      <h1 className="text-4xl font-semibold text-gray-700 mt-10 mb-10 text-center">
-        Our Pricing
-      </h1>
-      <div className="grid grid-cols-3 gap-10 ml-[100px] mr-[100px] mb-[100px] ">
-        {pricingOptions.map((option, index) => (
-          <div
-            key={index}
-            className="flex flex-col justify-between border border-gray-200 p-5 rounded-lg shadow-lg h-full cursor-pointer transform transition-transform duration-500 hover:scale-105"
-          >
-            <div>
-              <h2 className="text-3xl font-semibold mb-5 text-center">
-                {option.plan}
-              </h2>
-              <p className="text-2xl mb-10 text-center">{option.price}</p>
-              <ul className="text-xl">
-                {option.benefits.map((benefit, index) => (
-                  <li
-                    key={index}
-                    className="flex justify-between items-center mb-2"
-                  >
-                    {benefit}
-                    <CheckBoxIcon
-                      style={{ color: "green", marginLeft: "2px" }}
-                    />
-                  </li>
-                ))}
-                {option.notIncluded!.map((notBenefit, index) => (
-                  <li
-                    key={index}
-                    className="flex justify-between items-center mb-2"
-                  >
-                    {notBenefit}
-                    <DisabledByDefaultIcon
-                      style={{ color: "red", marginLeft: "2px" }}
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="mt-10 text-center">
-              <Link href={option.buttonLink} legacyBehavior>
-                <a className="bg-blue-500 text-white py-2 px-4 rounded mb-5 inline-block">
-                  {option.buttonLabel}
-                </a>
-              </Link>
-            </div>
+    <>
+      <RefreshPage />
+      {
+        <div className="px-4 py-5 my-5">
+          <h1 className="text-4xl font-semibold text-gray-700 mt-10 mb-10 text-center">
+            Our Pricing
+          </h1>
+          <div className="grid grid-cols-3 gap-10 ml-[100px] mr-[100px] mb-[100px] ">
+            {pricingOptions.map((option, index) => (
+              <div
+                key={index}
+                className="flex flex-col justify-between border border-gray-200 p-5 rounded-lg shadow-lg h-full cursor-pointer transform transition-transform duration-500 hover:scale-105"
+              >
+                <div>
+                  <h2 className="text-3xl font-semibold mb-5 text-center">
+                    {option.plan}
+                  </h2>
+                  <p className="text-2xl mb-10 text-center">{option.price}</p>
+                  <ul className="text-xl">
+                    {option.benefits.map((benefit, index) => (
+                      <li
+                        key={index}
+                        className="flex justify-between items-center mb-2"
+                      >
+                        {benefit}
+                        <CheckBoxIcon
+                          style={{ color: "green", marginLeft: "2px" }}
+                        />
+                      </li>
+                    ))}
+                    {option.notIncluded!.map((notBenefit, index) => (
+                      <li
+                        key={index}
+                        className="flex justify-between items-center mb-2"
+                      >
+                        {notBenefit}
+                        <DisabledByDefaultIcon
+                          style={{ color: "red", marginLeft: "2px" }}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="mt-10 text-center">
+                  <Link href={option.buttonLink} legacyBehavior>
+                    <a className="bg-blue-500 text-white py-2 px-4 rounded mb-5 inline-block">
+                      {option.buttonLabel}
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      }
+    </>
   );
 };
 
