@@ -12,9 +12,9 @@ export default function RootLayout({
     <>
       <html>
         <body>
-          {<NavbarLogin />}
+          <NavbarLogin />
           {children}
-          {<Footer />}
+          <Footer />
         </body>
       </html>
     </>
