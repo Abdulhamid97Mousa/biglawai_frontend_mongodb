@@ -8,13 +8,12 @@ import Drafting_Summarizing from "../public/Images/Drafting and Summarizing Agre
 import Data_Security_Privacy from "../public/Images/Data_Security_and_Privacy.jpg";
 import Analyze_Legal_Documents from "../public/Images/analyze legal documents .jpeg";
 import Multilingual_Translation from "../public/Images/Multilingual_Translation.jpg";
-import { RefreshPage } from "@/components/RefreshPage";
+
 
 const HomePage = () => {
   return (
     <>
-      <RefreshPage />
-      {
+
         <div className="min-h-screen bg-white">
           <div className="px-8 md:px-24 py-12">
             <section className="grid grid-cols-2  mb-[100px] mt-[100px]    justify-between">
@@ -216,7 +215,6 @@ const HomePage = () => {
             </section>
           </div>
         </div>
-      }
     </>
   );
 };

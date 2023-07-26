@@ -1,8 +1,5 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
-import { RefreshPage } from "@/components/RefreshPage"; // Make sure to adjust the path
 
 const Team = () => {
   const teamMembers = [
@@ -40,8 +37,7 @@ const Team = () => {
 
   return (
     <>
-      <RefreshPage />
-      {
+
         <div>
           <h1 className="text-4xl font-semibold text-gray-700 mt-10 mb-10 text-center">
             MEET BIGLAW-AI TEAM
@@ -64,7 +60,6 @@ const Team = () => {
             ))}
           </div>
         </div>
-      }
     </>
   );
 };
