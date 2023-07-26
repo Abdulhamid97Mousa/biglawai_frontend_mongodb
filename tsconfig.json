@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "pages/api/auth/[...nextauth].ts"
-, "lib/prisma.ts"  ],
+    "pages/api/auth/[...nextauth].ts",
+    "lib/prisma.ts"
+  ],
   "exclude": ["node_modules"]
 }

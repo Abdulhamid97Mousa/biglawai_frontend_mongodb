@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import countries from "./countries.json";
 import questionTypes from "./questionTypes.json";
-import { RefreshPage } from "@/components/RefreshPage"; // Make sure to adjust the path
 
 const Select = dynamic(() => import("react-select"), { ssr: false });
 
@@ -43,8 +42,6 @@ const ContactPage = () => {
 
   return (
     <>
-      <RefreshPage />
-      {
         <div className="container mx-auto px-4 py-5">
           <div className="grid grid-cols-2 gap-[50px]  mt-[50px] mb-[50px]">
             <div>
@@ -168,7 +165,7 @@ const ContactPage = () => {
             </div>
           </div>
         </div>
-      }
+
     </>
   );
 };

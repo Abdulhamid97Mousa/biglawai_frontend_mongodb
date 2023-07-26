@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import NavItem from "./NavItem";
 import Image from "next/image";
 import logo from "../public/Images/log-2.jpg";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Bars4Icon } from "@heroicons/react/24/outline";
 
 const MENU_LIST = [
@@ -18,13 +18,7 @@ const MENU_LIST = [
 
 const Navbar = () => {
   const [navActive, setNavActive] = useState(false);
-  const router = useRouter();
   const pathname = usePathname();
-
-  // Add function to navigate the page
-  const navigateTo = (href: string) => {
-    router.push(href);
-  };
 
   return (
     <>
@@ -32,12 +26,11 @@ const Navbar = () => {
         id="topofdiv"
         className="nav flex bg-[#ecf7ff] justify-between border-b-2 border-gray-300 items-center"
       >
-        <a
-          className="ml-[80px] mb-5 mt-5 cursor-pointer"
-          onClick={() => navigateTo("/")}
-        >
-          <Image src={logo} alt="logo" priority={true} width={200} />
-        </a>
+        <Link rel="preload" href={"/"} legacyBehavior>
+          <a className="ml-[80px] mb-5 mt-5">
+            <Image src={logo} alt="logo" priority={true} width={200} />
+          </a>
+        </Link>
 
         {/* Burger Menu */}
         <div
@@ -54,17 +47,18 @@ const Navbar = () => {
             } 2xl:hidden bg-white shadow-md rounded-lg absolute top-[50px] right-[100px] border-gray-300 w-[200px] z-50`}
           >
             {MENU_LIST.map((menu, idx) => (
-              <a
-                key={menu.text}
-                onClick={() => navigateTo(menu.href)}
-                className="block text-black text-[24px] justify-between hover:bg-gray-300 transition-all duration-200 ease-out px-[10px] rounded-sm"
-                style={{
-                  fontFamily: "Pangea, sans-serif",
-                  textTransform: "uppercase",
-                }}
-              >
-                {menu.text}
-              </a>
+              <Link key={menu.text} href={menu.href} legacyBehavior>
+                <a
+                  onClick={() => setNavActive(false)}
+                  className="block text-black text-[24px] justify-between hover:bg-gray-300 transition-all duration-200 ease-out px-[10px] rounded-sm"
+                  style={{
+                    fontFamily: "Pangea, sans-serif",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {menu.text}
+                </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -76,7 +70,6 @@ const Navbar = () => {
               text={menu.text}
               href={menu.href}
               active={pathname === menu.href}
-              onClick={() => navigateTo(menu.href)}
             />
           ))}
         </div>

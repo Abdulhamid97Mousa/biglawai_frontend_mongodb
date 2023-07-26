@@ -41,7 +41,6 @@ const AboutUs = () => {
 
   return (
     <>
-      <RefreshPage />
       {
         <div>
           <div>
@@ -67,13 +66,15 @@ const AboutUs = () => {
             </div>
           </div>
           <div className="flex justify-center items-center mt-5 mb-5">
-            <Link href="/About/Team" legacyBehavior>
+            <Link href="/About/Team">
               <div
                 className="flex  bg-blue-300 mb-[50px] hover:bg-[#7c8db9] cursor-pointer border-2 border-black rounded-md h-[50px] w-[360px] ease-in-out"
                 style={{ fontFamily: "Pangea, sans-serif" }}
               >
                 <div className="flex-1 justify-center text-center py-3 ">
-                  <a className="nav__item text-center">MEET THE FULL TEAM</a>
+                  <div className="nav__item text-center">
+                    MEET THE FULL TEAM
+                  </div>
                 </div>
               </div>
             </Link>
