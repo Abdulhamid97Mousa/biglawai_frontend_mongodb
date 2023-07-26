@@ -1,0 +1,15 @@
+"use client";
+
+// components/RefreshPage.js
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+export function RefreshPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
+  return null;
+}
