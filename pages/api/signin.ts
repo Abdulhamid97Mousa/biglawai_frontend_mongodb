@@ -1,36 +1,44 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../lib/prisma";
+import bcrypt from "bcrypt";
 
 export default async function signin(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const email = req.body;
+  const { email, password } = req.body;
 
   try {
     const user = await prisma.user.findUnique({
-      where: {
-        email: req.body.email,
+      where: { email },
+    });
+
+    if (!user) {
+      return res
+        .status(401)
+        .json({ error: "User not found, please sign up first" });
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user.hashedPassword);
+
+    if (!isPasswordMatch) {
+      return res.status(401).json({ error: "Incorrect password" });
+    }
+
+    const chat = await prisma.chat.create({
+      data: {
+        userId: user.email,
+        createdByWho: user.name,
       },
     });
 
-    // Check if user exists and password is correct
-    if (user) {
-      // Here you can handle authentication with NextAuth if you want
-
-      // Create a new chat in your MongoDB database linked to this user
-      const chat = await prisma.chat.create({
-        data: {
-          userId: user.email,
-          // other fields if necessary...
-        },
-      });
-
-      res.status(200).json({ message: "User successfully logged in", chat });
-    } else {
-      res.status(401).json({ error: "User not found, please sign up first" }); // Updated error message here
-    }
+    return res
+      .status(200)
+      .json({ message: "User successfully logged in", chat });
   } catch (error) {
-    res.status(500).json({ error: "An error occurred while logging in" });
+    console.error("Error in signin:", error);
+    return res
+      .status(500)
+      .json({ error: "An error occurred while logging in" });
   }
 }

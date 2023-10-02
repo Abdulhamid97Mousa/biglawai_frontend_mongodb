@@ -3,7 +3,8 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prisma from "../../../lib/prisma";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import EmailProvider from "next-auth/providers/email";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -16,19 +17,60 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
-    EmailProvider({
-      server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: process.env.EMAIL_SERVER_PORT,
-        auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD,
+    CredentialsProvider({
+      name: "credentials",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "text",
+          placeholder: "Write your email here",
         },
+        password: { label: "Password", type: "password" },
       },
-      from: process.env.EMAIL_SERVER_USER,
+      async authorize(credentials, req) {
+        if (!credentials || !credentials.email || !credentials.password) {
+          return null;
+        }
+
+        const { email, password } = credentials;
+
+        try {
+          const user = await prisma.user.findUnique({
+            where: { email },
+          });
+
+          // Check if user exists and password is correct
+          if (user) {
+            const isPasswordMatch = await bcrypt.compare(
+              password,
+              user.hashedPassword
+            );
+
+            if (!isPasswordMatch) {
+              return null; // Returning null if authentication fails
+            }
+
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              image: user.image,
+            }; // Returning user object if authentication succeeds
+          } else {
+            return null; // Returning null if user is not found
+          }
+        } catch (error) {
+          console.error("Error in credentials authentication:", error);
+          return null;
+        }
+      },
     }),
   ],
   secret: process.env.JWT_SECRET!,
+  session: {
+    strategy: "jwt",
+  },
+  debug: process.env.NODE_ENV === "development",
 };
 
 export default NextAuth(authOptions);
