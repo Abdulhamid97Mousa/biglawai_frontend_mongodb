@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import uuid from "react-uuid";
 import { Session } from "next-auth";
+import toast from "react-hot-toast";
 
 const bigLaw_req_answer = async (
   input: string,
@@ -29,10 +30,9 @@ const bigLaw_req_answer = async (
     session: session,
   };
 
-  // console.log(body.output_language);
-
   const url = process.env.NEXT_PUBLIC_CHATINPUT!;
-  try {
+
+  const sendRequest = async () => {
     const response = await fetch(url, {
       method: "POST",
       body: JSON.stringify(body),
@@ -40,6 +40,10 @@ const bigLaw_req_answer = async (
         "Content-Type": "application/json",
       },
     });
+
+    if (!response.ok) {
+      throw new Error("Response not OK");
+    }
 
     if (response.body) {
       const reader = response.body.getReader();
@@ -83,15 +87,32 @@ const bigLaw_req_answer = async (
           "Content-Type": "application/json",
         },
       }).catch((error) => {
-        console.error("Error:", error);
+        toast.error("Error:", error);
         throw new Error("Error while saving response");
       });
     }
-  } catch (error) {
-    console.error("Error in fetch:", error);
-  } finally {
-    setIsRequestActive(false); // Set to false after the request is completed
-  }
+  };
+
+  toast.promise(
+    sendRequest(),
+    {
+      loading: "Your message is being sent to our backend server...",
+      success: "The backend server has responded to your message!",
+      error: "An error occurred",
+    },
+    {
+      success: {
+        duration: 4000,
+        // icon: "🔥",
+      },
+      error: {
+        duration: 5000,
+        //icon: "😥",
+      },
+    }
+  );
+
+  setIsRequestActive(false); // Set to false after the request is completed
 };
 
 export default bigLaw_req_answer;

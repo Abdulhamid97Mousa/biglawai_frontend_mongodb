@@ -5,11 +5,11 @@ import React, { useState } from "react";
 import NavItem from "./NavItem";
 import Image from "next/image";
 import logo from "../public/Images/log-2.jpg";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Bars4Icon } from "@heroicons/react/24/outline";
 
 const MENU_LIST = [
-  { text: "BIGLAW-AI", href: "/Tryout" },
+  { text: "BIGLAW-AI", href: "/Logged-in" },
   { text: "About Us", href: "/About" },
   { text: "Guide", href: "/Guide" },
   { text: "Pricing", href: "/Pricing" },
@@ -19,6 +19,14 @@ const MENU_LIST = [
 const Navbar = () => {
   const [navActive, setNavActive] = useState(false);
   const pathname = usePathname();
+
+  if (
+    pathname?.startsWith("/Logged-in") ||
+    pathname?.startsWith("/sign-in") ||
+    pathname?.startsWith("/sign-up")
+  ) {
+    return null;
+  }
 
   return (
     <>

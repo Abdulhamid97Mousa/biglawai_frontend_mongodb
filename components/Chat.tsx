@@ -33,7 +33,7 @@ function Chat({ userEmail, chatId, currentResponse, currentQuestion }: Props) {
   }, [userEmail, chatId]);
 
   return (
-    <div className="flex-grow h-[400px] border-[#d4d4d4] rounded-md border-2  mr-10 ml-10 mt-5 overflow-x-hidden">
+    <div className="flex-grow  overflow-x-hidden overflow-y-scroll max-h-[65vh] ">
       {messages.length === 0 && (
         <div>
           <p className="mt-10 text-center text-black text-base animate-pulse">

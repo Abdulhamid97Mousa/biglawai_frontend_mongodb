@@ -8,8 +8,6 @@ import sendMessage from "@/functions/sendMessage";
 import handleFileSelect from "@/functions/handleUploadFile";
 import { useEffect } from "react";
 
-// import handleFileSelect from "../functions/handleUploadFile";
-
 type Props = {
   userEmail: string;
   chatId: string;
@@ -17,6 +15,8 @@ type Props = {
   hidePii: boolean;
   setCurrentResponse: Dispatch<SetStateAction<string>>;
   setCurrentQuestion: Dispatch<SetStateAction<string>>;
+  selectedServer: string; // This is mandatory
+  openAIKey?: string; // These are optional
 };
 
 function ChatInput({
@@ -26,6 +26,8 @@ function ChatInput({
   hidePii,
   setCurrentResponse,
   setCurrentQuestion,
+  selectedServer,
+  openAIKey,
 }: Props) {
   const [prompt, setPrompt] = useState("");
   const [isRequestActive, setIsRequestActive] = useState(false);
@@ -74,7 +76,9 @@ function ChatInput({
               lang,
               hidePii,
               userEmail,
-              setIsRequestActive // added this
+              setIsRequestActive,
+              selectedServer, 
+              openAIKey 
             );
           }}
           className=" p-5 space-x-5  flex"

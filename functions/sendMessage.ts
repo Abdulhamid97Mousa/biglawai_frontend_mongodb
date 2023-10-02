@@ -2,6 +2,8 @@ import { Dispatch, FormEvent, SetStateAction } from "react";
 import getMemory from "./getMemory";
 import { Session } from "next-auth";
 import bigLaw_req_answer from "./request";
+import openAI_req_answer from "./openai";
+import toast from "react-hot-toast";
 
 const sendMessage = async (
   e: FormEvent<HTMLFormElement>,
@@ -13,8 +15,10 @@ const sendMessage = async (
   chatId: string,
   lang: string,
   hidePii: boolean,
-  userEmail: string, // Changed to also accept undefined
-  setIsRequestActive: Dispatch<SetStateAction<boolean>>
+  userEmail: string,
+  setIsRequestActive: Dispatch<SetStateAction<boolean>>,
+  selectedServer: string, //this mandatory
+  openAIKey?: string // this is optional
 ) => {
   e.preventDefault();
   if (!prompt) return;
@@ -26,12 +30,11 @@ const sendMessage = async (
   const message = {
     input: input,
     chatId: chatId,
-    userEmail: userEmail, // added by me
+    userEmail: userEmail,
     lang: lang,
   };
 
   try {
-    // Make a fetch request to the /api/SendMessage endpoint
     const res = await fetch("/api/SendMessage", {
       method: "POST",
       headers: {
@@ -40,10 +43,13 @@ const sendMessage = async (
       body: JSON.stringify(message),
     });
 
-    // Check if the request was successful
-
     if (!res.ok) {
-      const errorData = await res.json(); // Add this line
+      const errorData = await res.json();
+      toast.error(
+        `Error sending message from function. Response: ${JSON.stringify(
+          errorData
+        )}`
+      );
       throw new Error(
         `Error sending message from function. Response: ${JSON.stringify(
           errorData
@@ -51,30 +57,40 @@ const sendMessage = async (
       );
     }
 
-    const resData = await res.json(); 
+    const resData = await res.json();
 
-    // console.log(resData.data.content);
-
-    // If the message was sent successfully, start the next phase of your logic
     if (resData.message === "Message sent successfully!") {
-      // Retrieve messages from the database
       const messages = await getMemory(chatId);
-      // console.log(messages, "the function getMemory is working properly");
 
-      bigLaw_req_answer(
-        input,
-        hidePii,
-        lang,
-        messages,
-        setCurrentResponse,
-        session,
-        chatId,
-        setIsRequestActive
-      );
+      // Depending on the selectedServer call different functions
+      if (selectedServer === "bigLaw") {
+        console.log(selectedServer);
+        bigLaw_req_answer(
+          input,
+          hidePii,
+          lang,
+          messages,
+          setCurrentResponse,
+          session,
+          chatId,
+          setIsRequestActive
+        );
+      } else if (selectedServer === "openAI") {
+        console.log(selectedServer, "the selected server");
+        console.log(openAIKey, "the inserted key");
+        openAI_req_answer(
+          input,
+          setCurrentResponse,
+          setIsRequestActive,
+          session,
+          chatId,
+          openAIKey
+        );
+      }
     }
   } catch (error) {
+    toast.error(`Error sending message: ${error}`);
     console.error(error);
-  } finally {
   }
 };
 

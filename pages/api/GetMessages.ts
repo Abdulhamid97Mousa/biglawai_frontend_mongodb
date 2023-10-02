@@ -6,7 +6,7 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { userEmail, chatId } = req.query;
+  const { chatId } = req.query;
 
   try {
     const messages = await prisma.message.findMany({

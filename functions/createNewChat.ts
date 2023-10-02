@@ -15,6 +15,7 @@ const createNewChat = async (session: Session | null): Promise<NewChat> => {
   return {
     id: data.id,
     userEmail: session?.user?.email,
+    createdAt: data.id.createdAt,
   };
 };
 
