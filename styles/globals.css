@@ -1,10 +1,27 @@
-@import "tailwindcss/base";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@import "tailwindcss/components";
 
-@import "tailwindcss/utilities";
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
-/* Path: styles/globals.css */
+/* Styles for the content section */
+.content {
+  flex: -1;
+}
+
+
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
 
 
 .contacts-form{
@@ -29,7 +46,6 @@
   border-radius: 3px;
   margin-top: 15px;
 }
-
 
 
 .sign-in-form{
@@ -148,149 +164,29 @@
     }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap');
 
-html {
-  scroll-behavior: smooth;
+.sidebar-container {
+  /* Rest of your styles */
+  transition: opacity 0.5s ease-in-out;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  outline: none;
+.sidebar-container.open {
+  opacity: 1;
+}
+
+.sidebar-container.closed {
+  opacity: 0;
+}
+
+.editable-message {
+  width: 100%;
+  min-height: 15rem; /* Set a minimum height that you find appropriate */
+  min-width: 60rem;
+  font-size: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: #4d4d4f;
+  border-color: #4d4d4f;
   box-sizing: border-box;
-  font-family: 'Work Sans', sans-serif;
+  resize: both; /* Allow vertical resize, disallow horizontal */
 }
-a{
-  text-decoration: none;
-  color: inherit;
-  text-align: center;
-
-}
-header{
-  position: sticky;
-  z-index: 30;
-  top: 0;
-  
-}
-
-body{
-  min-height: 100vh;
-  display: flex ;
-  flex-direction: column;
-}
-
-footer{
-  margin-top: auto;
-  flex:auto ;
-}
-
-article {
-  margin: auto 0;
-}
-
-nav{
-  display: flex;
-  position: absolute;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #ecf7ff;
-  
-}
-.nav__menu-bar{
-  flex-direction: row;
-  position: absolute;
-  cursor: pointer;
-}
-.nav__menu-bar div{
-  width: 80px;
-  height: 6px;
-  
-}
-.nav__menu-list{
-  display: inline-flex;
-  direction: row;
-
-  top: 60px;
-  width: 400px;
-  padding-right: 80px;
-  transition: all 0.2s;
-  min-height: calc(100vh - 60px);
-  background-color: #ecf7ff;
-  border: 2px;
-  border-radius: 2px;
-  border-color: black;
-  padding-top: 10px;
-  
-}
-.nav__menu-list.active{
-  right: 0;
-  
-}
-.nav__link{
-  font-size: 18px; 
-  position: relative;
-  transition: all 0.2s;
-}
-
-
-.nav__link:hover{
- font-weight: bold;
-}
-
-.center{
-  min-height: 600px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.nav__item{
-  padding-top: 5px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-@media screen and (min-width: 1024px) {
-  .nav__menu-bar{
-    display: inline-flex;
-  }
-  .nav__menu-list{
-    display: inline-flex;
-    padding-top: 15px;
-    position: unset;
-    flex-direction: row;
-    min-height: fit-content;
-    width: fit-content;
-    height: fit-content;
-    align-items: center;
-    color: black;
-    font-size: medium;
-    font-family: "Pangea, sans-serif";
-    font-weight: normal;
-  }
-  .nav__menu-list_horizontal{
-    display: inline-flex;
-    padding-top: 15px;
-    position: unset;
-    flex-direction: row;
-    min-height: fit-content;
-    width: fit-content;
-    height: fit-content;
-    align-items: center;
-    color: black;
-    font-size: medium;
-    font-family: "Pangea, sans-serif";
-    font-weight: normal;
-  }
-  .nav__link::before{
-    position: absolute;
-    background-color: black;
-    transition: all 0.2s;
-  }
-  
-  .nav__link:hover:before{
-   width: 100%;
-  }
-}
-

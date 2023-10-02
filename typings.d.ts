@@ -5,6 +5,7 @@ export type Chat = {
   userEmail: string | null | undefined;
   messages: Message[];
   files: File[];
+  createdAt: Date;
 };
 
 export type Message = {
@@ -18,6 +19,8 @@ export type Message = {
   createdBy: string | null;
   lang: string | null;
   streamed: boolean; // add this line
+  liked: boolean;
+  disliked: boolean;
 };
 export interface SendMessageRequestBody {
   input: string;
@@ -30,7 +33,6 @@ export type User = {
   id: string;
   email: string;
   name?: string | null;
-  username?: string | null;
   image?: string | null;
   createdAt: Date;
   emailVerified?: Date | null;
@@ -47,5 +49,6 @@ export type File = {
 
 export type NewChat = {
   id: string;
+  createdAt: Date;
   userEmail: string | null | undefined;
 };
