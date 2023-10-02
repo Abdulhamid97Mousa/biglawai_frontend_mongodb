@@ -1,0 +1,17 @@
+# Ignore Git related
+.git
+.gitignore
+
+# Ignore development environment files
+.vscode
+.DS_Store
+.env.local
+next.config.js
+
+# Ignore Node.js specific
+node_modules
+yarn-error.log
+
+# Ignore build files
+.next
+.dockerignore
