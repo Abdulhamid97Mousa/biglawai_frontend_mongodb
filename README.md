@@ -51,7 +51,26 @@ Feel free to explore these tools further within our codebase or reach out to the
 
 This enhanced documentation provides a clearer understanding of each tool's role in your project, making it easier for developers to grasp the technology stack and its significance. You can also consider adding links to relevant resources or sections in your codebase where each tool is used for more in-depth reference.
 
+## Contributions
+We welcome contributions to the BIGLAW-AI GitHub repository from the developer community. Your contributions help us enhance our AI-powered application and make it even more valuable for corporate lawyers. Here's how you can contribute:
+
+### Reporting Issues
+If you encounter any bugs, glitches, or unexpected behavior while using BIGLAW-AI, please report them on our GitHub repository. When reporting issues, be sure to provide detailed information about the problem, including steps to reproduce it and any error messages you receive. This information helps our development team identify and resolve issues more efficiently.
+
+### Feature Requests
+If you have ideas for new features or improvements that you believe would benefit our users, please feel free to submit feature requests on our GitHub repository. We value your input and are open to suggestions for making BIGLAW-AI even more powerful and user-friendly.
+
+### Pull Requests
+If you're interested in contributing code to BIGLAW-AI, we encourage you to submit pull requests. Whether it's bug fixes, new features, or improvements to existing code, your contributions are highly appreciated. To ensure a smooth review process, please follow these guidelines when submitting pull requests:
+
+1. Fork the BIGLAW-AI repository to your GitHub account.
+2. Create a new branch for your changes.
+3. Commit your changes with clear and concise messages.
+4. Test your changes thoroughly to ensure they do not introduce new issues.
+5. Submit a pull request with a detailed description of the changes made and the problem they address.
+6. Our development team will review your pull request, provide feedback, and work with you to ensure that your contributions align with the project's goals and standards.
 
 ### Demo
+To experience BIGLAW-AI in action, please visit our application at https://biglawai-frontend-mongodb.vercel.app. Explore its features and functionality, and feel free to provide feedback or report any issues you encounter during your demo. Your input is valuable in helping us refine and enhance the application further.
 
 
