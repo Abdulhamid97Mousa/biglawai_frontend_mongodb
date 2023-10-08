@@ -41,6 +41,7 @@ MongoDB is a document-oriented NoSQL database designed for high-volume data stor
 Usage in BIGLAW-AI: We utilize MongoDB as our primary data store, benefiting from its scalability and flexibility for managing large volumes of data.
 
 <img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/b255bb0a-17fd-4346-9b19-d004a2d7abb4" width="48" height="48">
+
 TypeScript is an open-source language that builds upon JavaScript by introducing static type definitions. Key advantages of TypeScript include:
 - Enhanced developer tooling, such as autocompletion and type checking.
 - Improved code robustness.
