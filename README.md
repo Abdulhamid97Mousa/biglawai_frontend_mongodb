@@ -79,6 +79,7 @@ Making API calls is a crucial aspect of our BIGLAW-AI project. Here, we'll outli
 In the LoginPage.tsx file, you have an example of making an API call to the **./pages/api/signin** endpoint. Let's highlight the best practices within this code snippet:
 
 ```javascript
+## ./biglawai_frontend/app/(auth)/sign-in/page.tsx
 // Import the necessary dependencies
 import React, { useState, FormEventHandler } from "react";
 import { signIn, useSession } from "next-auth/react";
@@ -143,9 +144,10 @@ const handleLogin: FormEventHandler<HTMLFormElement> = async (e) => {
 - Content-Type Header: Setting the "Content-Type" header to "application/json" is a best practice for JSON API requests.
 
 #### Prisma Schema Usage
-In our API call, we interact with database using Prisma. Let's highlight which parts of the Prisma schema are used in this API call:
+In our API call, we interact with database using Prisma. Let's take a look at the API call file in ./biglawai_frontend/pages/api/signin.ts:
 
 ```javascript
+## ./biglawai_frontend/pages/api/signin.ts
 const { email, password } = req.body;
 
 try {
@@ -173,6 +175,73 @@ try {
   // Handling success and returning chat data
 } catch (error) {
   // Handling errors and returning appropriate responses
+}
+```
+
+In the above code we can see that we're checking for an email, if the user's email doesn't exist, then we create a new user with his email and password. The User table should also exist in the ./prisma/schema.prisma file.
+
+```javascript
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  email          String    @unique
+  name           String?   @unique
+  image          String?
+  hashedPassword String
+  createdAt      DateTime  @default(now())
+  emailVerified  DateTime? @map("verifiedAt")
+  sessions       Session[]
+  chats          Chat[]
+  Message        Message[]
+  Account        Account[]
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String? @db.String
+  refresh_token     String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String   @db.ObjectId
+  expires      DateTime @map("expiresAt")
+  user         User     @relation(fields: [userId], references: [id])
+  chatId       String   @db.ObjectId
+  chat         Chat     @relation(fields: [chatId], references: [id])
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime @map("expiresAt")
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
 }
 ```
 
