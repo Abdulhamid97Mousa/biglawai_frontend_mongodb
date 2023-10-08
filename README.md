@@ -144,7 +144,7 @@ const handleLogin: FormEventHandler<HTMLFormElement> = async (e) => {
 - Content-Type Header: Setting the "Content-Type" header to "application/json" is a best practice for JSON API requests.
 
 #### Prisma Schema Usage
-In our API call, we interact with database using Prisma. Let's take a look at the API call file in ./biglawai_frontend/pages/api/signin.ts:
+In our API call, we interact with database using Prisma. Let's take a look at the API call file in ./biglawai_frontend/pages/api/signin.ts, please pay attention to this line (**const user = await prisma.user.findUnique**) that how we are checking whether user's email exist in the database or not, and if not we should create a new user using his email and name (**const chat = await prisma.chat.create**):
 
 ```javascript
 ## ./biglawai_frontend/pages/api/signin.ts
