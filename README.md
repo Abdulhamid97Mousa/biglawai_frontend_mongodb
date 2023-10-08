@@ -75,7 +75,7 @@ In the BIGLAW-AI project, we adhere to a set of coding conventions and best prac
 We maintain a consistent coding style throughout the project to ensure that the code is easy to read and understand. We follow industry-standard conventions for naming variables, functions, and classes. For example, when naming variables and functions, we use camelCase, and for classes, we use PascalCase. Here's an example:
 
 
-```
+```javascript
 // Good practice: Using camelCase for variable and function names
 const myVariableName = 'example';
 
@@ -87,13 +87,13 @@ function myFunctionName() {
 class MyClass {
   // Class code here
 }
-```javascript
+```
 
 
 ## Version Control (Git)
 We use Git for version control to track changes, collaborate with team members, and manage our codebase efficiently. We follow Git best practices, such as creating feature branches, writing meaningful commit messages, and regularly syncing with the main branch. For example:
 
-```
+```shell
 # Create a new feature branch
 git checkout -b feature/new-feature
 
@@ -103,7 +103,7 @@ git commit -m "Add functionality to calculate statistics"
 # Regularly sync with the main branch
 git fetch origin
 git rebase origin/main
-```shell
+```
 
 
 ## Demo
