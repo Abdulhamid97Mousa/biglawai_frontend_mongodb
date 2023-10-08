@@ -1,4 +1,4 @@
-### BIGLAW AI
+## BIGLAW AI
 
 Welcome to the development documentation for the BIGLAW-AI project. In this documentation, we will discuss the essential tools used in our application and provide insights into how everything works together.
 
