@@ -17,15 +17,17 @@ BIGLAW AI is an AI powered application dedicated to revolutionizing the way corp
 
 ## Tools
 
-<img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/c7788dcb-1587-49e9-8fa3-3e612201edea" width="36" height="36">: Next.js is a popular framework for building React applications. It offers the following
+<img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/c7788dcb-1587-49e9-8fa3-3e612201edea" width="36" height="36">
+
+Next.js is a popular framework for building React applications. It offers the following
 
 key features:
-Server-side rendering (SSR) and static site generation (SSG) for improved performance and SEO.
-First-class support for various tools and libraries.
-CSS modules for styling, ensuring better encapsulation of styles.
-TypeScript integration for type safety.
-Image optimization for efficient asset management.
-Usage in BIGLAW-AI: We use Next.js as the foundation for our frontend, taking advantage of its performance-enhancing features and flexibility.
+- Server-side rendering (SSR) and static site generation (SSG) for improved performance and SEO.
+- First-class support for various tools and libraries.
+- CSS modules for styling, ensuring better encapsulation of styles.
+- TypeScript integration for type safety.
+- Image optimization for efficient asset management.
+- Usage in BIGLAW-AI: We use Next.js as the foundation for our frontend, taking advantage of its performance-enhancing features and flexibility.
 
 <img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/d49e9ccc-f3b2-43b4-9afa-cdc1d1be8e96" width="36" height="36">
 
