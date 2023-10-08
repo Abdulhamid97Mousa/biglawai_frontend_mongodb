@@ -29,7 +29,7 @@ key features:
 - Image optimization for efficient asset management.
 - Usage in BIGLAW-AI: We use Next.js as the foundation for our frontend, taking advantage of its performance-enhancing features and flexibility.
 
-<img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/d49e9ccc-f3b2-43b4-9afa-cdc1d1be8e96" width="48" height="36">
+<img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/d49e9ccc-f3b2-43b4-9afa-cdc1d1be8e96" width="48" height="48">
 
 Prisma is an open-source database toolkit that provides Object-Relational Mapping (ORM) capabilities for interacting with databases in an object-oriented manner. Key aspects of Prisma include:
 Prisma Client: An auto-generated and type-safe query builder for Node.js and TypeScript.
