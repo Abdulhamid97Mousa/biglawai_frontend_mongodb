@@ -3,7 +3,7 @@
 Welcome to the development documentation for the BIGLAW-AI project. In this documentation, we will discuss the essential tools used in our application and provide insights into how everything works together.
 
 ## What is BIGLAW-AI
-Biglaw-ai is an AI powered application dedicated to revolutionizing the way corporate lawyers work by providing cutting-edge solutions tailored to their specific needs. Our primary focus is on enhancing efficiency and streamlining the process of preparing contracts and agreements while maintaining the highest standards of data security and privacy.
+BIGLAW AI is an AI powered application dedicated to revolutionizing the way corporate lawyers work by providing cutting-edge solutions tailored to their specific needs. Our primary focus is on enhancing efficiency and streamlining the process of preparing contracts and agreements while maintaining the highest standards of data security and privacy.
 
 ## Features
 - Drafting and Summarizing Agreements: BiglawAI excels in converting term sheets into comprehensive, legally enforceable agreements, customized to meet the unique requirements of each agreement. It can also simplify complex agreements into concise term sheets, making them more understandable and communicable. This service is available in multiple languages, including Chinese, Spanish, and French, making it invaluable for lawyers working with diverse clients worldwide.
