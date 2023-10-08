@@ -16,7 +16,7 @@ BIGLAW AI is an AI powered application dedicated to revolutionizing the way corp
 
 
 ## Tools
-### Next.js <img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/c7788dcb-1587-49e9-8fa3-3e612201edea" width="24" height="24">
+### Next.js <img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/c7788dcb-1587-49e9-8fa3-3e612201edea" width="36" height="36">
 
 Description: Next.js is a popular framework for building React applications. It offers the following key features:
 
@@ -27,20 +27,20 @@ TypeScript integration for type safety.
 Image optimization for efficient asset management.
 Usage in BIGLAW-AI: We use Next.js as the foundation for our frontend, taking advantage of its performance-enhancing features and flexibility.
 
-### Prisma ![image](https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/d49e9ccc-f3b2-43b4-9afa-cdc1d1be8e96)
+### Prisma <img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/d49e9ccc-f3b2-43b4-9afa-cdc1d1be8e96" width="36" height="36">
 
 Description: Prisma is an open-source database toolkit that provides Object-Relational Mapping (ORM) capabilities for interacting with databases in an object-oriented manner. Key aspects of Prisma include:
 
 Prisma Client: An auto-generated and type-safe query builder for Node.js and TypeScript.
 Usage in BIGLAW-AI: Prisma is instrumental in managing our database operations, offering a type-safe and efficient way to interact with our data.
 
-### MongoDB ![image](https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/01c55ec9-95c8-44e0-8d51-1d7461a19e2d)
+### MongoDB <img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/01c55ec9-95c8-44e0-8d51-1d7461a19e2d" width="36" height="36">
 
 Description: MongoDB is a document-oriented NoSQL database designed for high-volume data storage. Instead of traditional tables and rows, MongoDB uses collections and documents to store data.
 
 Usage in BIGLAW-AI: We utilize MongoDB as our primary data store, benefiting from its scalability and flexibility for managing large volumes of data.
 
-### TypeScript ![image](https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/b255bb0a-17fd-4346-9b19-d004a2d7abb4)
+### TypeScript <img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/b255bb0a-17fd-4346-9b19-d004a2d7abb4" width="36" height="36">
 
 Description: TypeScript is an open-source language that builds upon JavaScript by introducing static type definitions. Key advantages of TypeScript include:
 
