@@ -138,13 +138,12 @@ const handleLogin: FormEventHandler<HTMLFormElement> = async (e) => {
 ```
 
 #### Key Best Practices for API calls:
-- Error Handling: Proper error handling is crucial. In your code, you catch and handle errors from the API call, providing meaningful error messages and alerts to the user.
+- Error Handling: Proper error handling is crucial. In our code, we catch and handle errors from the API call, providing meaningful error messages and alerts to the user.
 - Async/Await: Using async/await for asynchronous operations, such as API calls, makes the code more readable and maintainable.
-- Use of NextAuth: You appropriately use NextAuth's signIn method for authentication, integrating it seamlessly with your API call.
 - Content-Type Header: Setting the "Content-Type" header to "application/json" is a best practice for JSON API requests.
 
 #### Prisma Schema Usage
-In your API call, you interact with your database using Prisma. Let's highlight which parts of the Prisma schema are used in this API call:
+In our API call, we interact with database using Prisma. Let's highlight which parts of the Prisma schema are used in this API call:
 
 ```javascript
 const { email, password } = req.body;
