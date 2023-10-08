@@ -68,7 +68,7 @@ If you're interested in contributing code to BIGLAW-AI, we encourage you to subm
 5. Submit a pull request with a detailed description of the changes made and the problem they address.
 6. Our development team will review your pull request, provide feedback, and work with you to ensure that your contributions align with the project's goals and standards.
 
-### Demo
+## Demo
 To experience BIGLAW-AI in action, please visit our application at https://biglawai-frontend-mongodb.vercel.app. Explore its features and functionality, and feel free to provide feedback or report any issues you encounter during your demo. Your input is valuable in helping us refine and enhance the application further.
 
 
