@@ -76,7 +76,7 @@ class MyClass {
 Making API calls is a crucial aspect of our BIGLAW-AI project. Here, we'll outline best practices and conventions related to making API calls, using your example as a reference.
 
 #### Example API Call in LoginPage.tsx
-In the LoginPage.tsx file, you have an example of making an API call to the /api/signin endpoint. Let's highlight the best practices within this code snippet:
+In the LoginPage.tsx file, you have an example of making an API call to the **./pages/api/signin** endpoint. Let's highlight the best practices within this code snippet:
 
 ```javascript
 // Import the necessary dependencies
