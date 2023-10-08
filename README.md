@@ -72,6 +72,123 @@ class MyClass {
 }
 ```
 
+### API Calls
+Making API calls is a crucial aspect of our BIGLAW-AI project. Here, we'll outline best practices and conventions related to making API calls, using your example as a reference.
+
+#### Example API Call in LoginPage.tsx
+In the LoginPage.tsx file, you have an example of making an API call to the /api/signin endpoint. Let's highlight the best practices within this code snippet:
+
+```javascript
+// Import the necessary dependencies
+import React, { useState, FormEventHandler } from "react";
+import { signIn, useSession } from "next-auth/react";
+// ...other imports...
+
+// Define the handleLogin function for form submission
+const handleLogin: FormEventHandler<HTMLFormElement> = async (e) => {
+  e.preventDefault();
+
+  setIsLoggingIn(true);
+
+  try {
+    // Make an API call to /api/signin
+    const response = await fetch("/api/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: userInfo.email,
+        password: userInfo.password,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "Login failed");
+    }
+
+    // Use NextAuth's signIn method for authentication
+    const result = await signIn("credentials", {
+      email: userInfo.email,
+      password: userInfo.password,
+      callbackUrl: `${window.location.origin}/Logged-in/Dashboard`,
+      redirect: false,
+    });
+
+    if (result && !result.error) {
+      console.log(result?.url!, "this is sign-in");
+      router.push(result?.url!);
+    } else {
+      throw new Error(result?.error || "NextAuth signIn returned undefined");
+    }
+  } catch (error) {
+    console.error("Login failed", error);
+    if (error instanceof Error) {
+      alert(error.message);
+    } else {
+      alert("An unexpected error occurred");
+    }
+  }
+
+  setIsLoggingIn(false);
+};
+
+```
+
+#### Key Best Practices for API calls:
+- Error Handling: Proper error handling is crucial. In your code, you catch and handle errors from the API call, providing meaningful error messages and alerts to the user.
+- Async/Await: Using async/await for asynchronous operations, such as API calls, makes the code more readable and maintainable.
+- Use of NextAuth: You appropriately use NextAuth's signIn method for authentication, integrating it seamlessly with your API call.
+- Content-Type Header: Setting the "Content-Type" header to "application/json" is a best practice for JSON API requests.
+
+#### Prisma Schema Usage
+In your API call, you interact with your database using Prisma. Let's highlight which parts of the Prisma schema are used in this API call:
+
+```javascript
+const { email, password } = req.body;
+
+try {
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    // Handling user not found
+  }
+
+  const isPasswordMatch = await bcrypt.compare(password, user.hashedPassword);
+
+  if (!isPasswordMatch) {
+    // Handling incorrect password
+  }
+
+  const chat = await prisma.chat.create({
+    data: {
+      userId: user.email,
+      createdByWho: user.name,
+    },
+  });
+
+  // Handling success and returning chat data
+} catch (error) {
+  // Handling errors and returning appropriate responses
+}
+```
+
+### Key Elements of a Prisma Schema:
+- generator: Specifies the Prisma client generator, which generates the Prisma Client for your application.
+- datasource: Defines the database connection details, such as the provider (e.g., MongoDB) and the URL.
+- model: Defines your data models. Each model represents an entity in your application (e.g., User, Session, Chat, Message, File). You specify properties (fields) of each model and their data types.
+- @id: Marks a field as the primary identifier for the model.
+- @default(auto()): Specifies that a field has an auto-generated default value.
+- @map("_id"): Maps the field to the "_id" field in the MongoDB collection.
+- @db.ObjectId: Indicates that the field is an ObjectId type in MongoDB.
+- Relationships (@relation): Defines relationships between models. For example, the User model has relationships with Session, Chat, and Message.
+
+By following these conventions in your Prisma schema, you can effectively model your data and define relationships between entities. Prisma will use this schema to generate a Prisma Client that provides a type-safe and efficient way to interact with your database in your JavaScript/TypeScript code.
+
 
 ## Version Control (Git)
 We use Git for version control to track changes, collaborate with team members, and manage our codebase efficiently. We follow Git best practices, such as creating feature branches, writing meaningful commit messages, and regularly syncing with the main branch. For example:
