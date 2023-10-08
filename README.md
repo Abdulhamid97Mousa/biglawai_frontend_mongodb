@@ -16,7 +16,7 @@ BIGLAW AI is an AI powered application dedicated to revolutionizing the way corp
 
 
 ## Tools
-### Next.js <img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/c7788dcb-1587-49e9-8fa3-3e612201edea" width="240" height="240">
+### Next.js <img src="https://github.com/Abdulhamid97Mousa/biglawai_frontend_mongodb/assets/80536675/c7788dcb-1587-49e9-8fa3-3e612201edea" width="24" height="24">
 
 Description: Next.js is a popular framework for building React applications. It offers the following key features:
 
